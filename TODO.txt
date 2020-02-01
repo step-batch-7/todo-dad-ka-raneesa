@@ -7,5 +7,16 @@ Requirements:
   6. Delete a todo list
 
 tasks:
-  --DONE-- * install mocha nyc for testing.
-  --DONE-- * add .eslintrc
+  --DONE-- * Install mocha nyc for testing.
+  --DONE-- * Add .eslintrc.
+  --DONE-- * setUp environment
+    [  server.js
+      --> lib folder
+        * app.js
+        * handlers.js
+        * mimeTypes.js
+      --> pubic folder
+        * css folder
+          * index.css
+      --> test folder
+        * testHandlers.js ]
