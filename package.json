@@ -1,0 +1,25 @@
+{
+  "name": "todo-dad-ka-raneesa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^7.0.1",
+    "nyc": "^15.0.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/step-batch-7/todo-dad-ka-raneesa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/step-batch-7/todo-dad-ka-raneesa/issues"
+  },
+  "homepage": "https://github.com/step-batch-7/todo-dad-ka-raneesa#readme"
+}
