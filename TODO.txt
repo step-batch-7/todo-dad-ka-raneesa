@@ -8,4 +8,4 @@ Requirements:
 
 tasks:
   --DONE-- * install mocha nyc for testing.
-  
+  --DONE-- * add .eslintrc
