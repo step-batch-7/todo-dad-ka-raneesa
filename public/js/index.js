@@ -1,6 +1,10 @@
 const getTodoAdder = () => document.querySelector('.todoAdder');
 const getTodoListDisplay = () => document.querySelector('.todoListDisplay');
 
+const statusCodes = {
+  'OK': 200
+};
+
 const addHeader = function() {
   const todoAdder = getTodoAdder();
   const header = document.createElement('h1');
@@ -47,9 +51,62 @@ const setupTodoAdder = function() {
   createForm();
 };
 
+const deleteTask = function(event) {
+};
+
+const createImg = function(src, className, eventListener) {
+  const img = document.createElement('img');
+  img.setAttribute('src', src);
+  img.classList.add(className);
+  img.addEventListener('click', eventListener);
+  return img;
+};
+
+const createTaskHeader = function(task) {
+  const taskHeader = document.createElement('div');
+  const taskTitle = document.createElement('h3');
+  const img = createImg('svg/delete.svg', 'svg', deleteTask);
+  taskTitle.classList.add('task-title');
+  taskTitle.textContent = task.title;
+  taskHeader.classList.add('task-header');
+  taskHeader.appendChild(taskTitle);
+  taskHeader.appendChild(img);
+  return taskHeader;
+};
+
+const sendHttpGet = function(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = function() {
+    if (this.status === statusCodes.OK) {
+      callback(this.responseText);
+    }
+  };
+  xhr.open('GET', url);
+  xhr.send();
+};
+
+const createTodoLists = function(task) {
+  const taskContainer = document.createElement('div');
+  const taskHeader = createTaskHeader(task);
+  taskContainer.id = task.id;
+  taskContainer.classList.add('task-container');
+  taskContainer.appendChild(taskHeader);
+  return taskContainer;
+};
+
+const loadTasks = function() {
+  sendHttpGet('/tasks', text => {
+    const todoListsContainer = document.querySelector('.todoLists');
+    const todoListsJson = JSON.parse(text);
+    const todoLists = todoListsJson.map(createTodoLists);
+    todoLists.forEach(task => todoListsContainer.appendChild(task));
+  });
+};
+
 const main = function() {
   setupTodoAdder();
   addHeaderToDisplay();
+  loadTasks();
 };
 
 window.onload = main;
