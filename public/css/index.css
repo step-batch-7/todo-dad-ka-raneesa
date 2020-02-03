@@ -32,7 +32,6 @@ body {
   border-right: 1px solid black;
   padding: 1% 0% 0% 5%;
   height: 130px;
-  overflow: scroll;
 }
 
 .todoListDisplay {
@@ -44,14 +43,14 @@ body {
 }
 
 .svg {
-  padding: 15px;
   height: 25px;
   cursor: pointer;
 }
 
 .todoLists {
-  padding: 0px 0px 0px 10px;
-  width: 75%;
+  padding: 0px 0px 10px 10px;
+  width: 76.5%;
+  overflow: scroll;
 }
 
 .task-header {
@@ -67,8 +66,11 @@ body {
   border: 1px solid rgba(30, 30, 30, 0.4);
   margin-top: 10px;
   padding: 10px;
-  width: 100%;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+}
+
+.task-title {
+  margin: 1px;
 }

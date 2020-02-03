@@ -84,12 +84,27 @@ const createTodoLists = function(task) {
   return taskContainer;
 };
 
+const createTitles = function(task) {
+  const title = document.createElement('a');
+  title.setAttribute('href', `#${task.id}`);
+  title.textContent = task.title;
+  return title;
+};
+
 const generateTasks = function(text) {
   const todoListsContainer = document.querySelector('.todoLists');
+  const todoTitlesContainer = document.querySelector('.todoListDisplay');
   const todoListsJson = JSON.parse(text);
   const todoLists = todoListsJson.map(createTodoLists);
+  const todoTitles = todoListsJson.map(createTitles);
   todoListsContainer.innerHTML = '';
+  todoTitlesContainer.innerHTML = '';
   todoLists.forEach(task => todoListsContainer.appendChild(task));
+  todoTitles.forEach(title => {
+    const breakTag = document.createElement('br');
+    todoTitlesContainer.appendChild(title);
+    todoTitlesContainer.appendChild(breakTag);
+  });
 };
 
 const deleteTask = function(event) {
