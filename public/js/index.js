@@ -84,10 +84,24 @@ const createTodoLists = function(task) {
   return taskContainer;
 };
 
+const displayTodoList = function(event) {
+  const [task] = event.path;
+  const taskId = task.id;
+  sendHttpGet('/tasks', text => {
+    const todoListsContainer = document.querySelector('.todoLists');
+    const todoListsJson = JSON.parse(text);
+    todoListsContainer.innerHTML = '';
+    const [todo] = todoListsJson.filter(task => task.id === +taskId);
+    const list = createTodoLists(todo);
+    todoListsContainer.appendChild(list);
+  });
+};
+
 const createTitles = function(task) {
-  const title = document.createElement('a');
-  title.setAttribute('href', `#${task.id}`);
+  const title = document.createElement('div');
+  title.id = task.id;
   title.textContent = task.title;
+  title.addEventListener('click', displayTodoList);
   return title;
 };
 
@@ -99,6 +113,7 @@ const generateTasks = function(text) {
   const todoTitles = todoListsJson.map(createTitles);
   todoListsContainer.innerHTML = '';
   todoTitlesContainer.innerHTML = '';
+  addHeaderToDisplay(); 
   todoLists.forEach(task => todoListsContainer.appendChild(task));
   todoTitles.forEach(title => {
     const breakTag = document.createElement('br');
@@ -138,7 +153,7 @@ const loadTasks = function() {
 
 const main = function() {
   setupTodoAdder();
-  addHeaderToDisplay();
+  // addHeaderToDisplay();
   loadTasks();
 };
 
