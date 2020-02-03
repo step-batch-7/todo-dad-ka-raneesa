@@ -74,3 +74,8 @@ body {
 .task-title {
   margin: 1px;
 }
+
+.todo-title,
+.task-title {
+  cursor: pointer;
+}

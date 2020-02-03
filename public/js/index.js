@@ -103,6 +103,7 @@ const createTitles = function(task) {
   const title = document.createElement('div');
   title.id = task.id;
   title.textContent = task.title;
+  title.classList.add('todo-title');
   title.addEventListener('click', displayTodoList);
   return title;
 };
