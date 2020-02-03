@@ -6,6 +6,30 @@ Requirements:
   5. Mark an item as done and undone
   6. Delete a todo list
 
+Data Structure:
+    * todo lists --> array of objects (array of lists)
+    * tasks --> contains two parts
+                  * title
+                  * lists
+    * lists --> array of objects (array of tasks)
+                  [{work:(content),isDone(true/false),id:(number)}]
+
+todo lists : 
+    
+        {
+           title: some title,
+           lists: [
+                    {
+                      list: list1,
+                      isDone: false
+                    },
+                    {
+                      list: list2,
+                      isDone: false
+                    }
+                  ]
+          }
+
 tasks:
   --DONE-- * Install mocha nyc for testing.
   --DONE-- * Add .eslintrc.
@@ -18,5 +42,11 @@ tasks:
       --> pubic folder
         * css folder
           * index.css
+        * index.html
       --> test folder
         * testHandlers.js ]
+
+  --DONE-- * Write an html page of to load page
+  --DONE-- * Add server
+  * Create text boxes, so that user can enter title and lists
+  * Show entered lists along with title
