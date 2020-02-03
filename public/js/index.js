@@ -8,25 +8,35 @@ const addHeader = function() {
 };
 
 const addTitleBox = function() {
-  const todoAdder = getTodoAdder();
   const titleBox = document.createElement('input');
+  titleBox.setAttribute('type', 'text');
+  titleBox.setAttribute('name', 'title');
   titleBox.setAttribute('placeholder', 'Enter Todo Title');
   titleBox.id = 'title';
-  todoAdder.appendChild(titleBox);
+  return titleBox;
 };
 
 const addSubmitButton = function() {
-  const todoAdder = getTodoAdder();
   const submitButton = document.createElement('input');
   submitButton.setAttribute('type', 'submit');
   submitButton.setAttribute('value', 'create');
-  todoAdder.appendChild(submitButton);
+  return submitButton;
+};
+
+const createForm = function() {
+  const todoAdder = getTodoAdder();
+  const form = document.createElement('form');
+  form.id = 'createTaskBar';
+  form.setAttribute('action', 'createTaskBar');
+  form.setAttribute('method', 'POST');
+  form.appendChild(addTitleBox());
+  form.appendChild(addSubmitButton());
+  todoAdder.appendChild(form);
 };
 
 const setupTodoAdder = function() {
   addHeader();
-  addTitleBox();
-  addSubmitButton();
+  createForm();
 };
 
 const main = function() {
