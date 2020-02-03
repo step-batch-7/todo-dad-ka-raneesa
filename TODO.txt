@@ -15,7 +15,7 @@ Data Structure:
                   [{work:(content),isDone(true/false),id:(number)}]
 
 todo lists : 
-    
+      [
         {
            title: some title,
            lists: [
@@ -28,7 +28,8 @@ todo lists :
                       isDone: false
                     }
                   ]
-          }
+        }
+      ]
 
 tasks:
   --DONE-- * Install mocha nyc for testing.
