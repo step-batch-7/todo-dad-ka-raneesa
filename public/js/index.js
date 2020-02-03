@@ -27,7 +27,7 @@ const createForm = function() {
   const todoAdder = getTodoAdder();
   const form = document.createElement('form');
   form.id = 'createTaskBar';
-  form.setAttribute('action', 'createTaskBar');
+  form.setAttribute('action', 'createTodo');
   form.setAttribute('method', 'POST');
   form.appendChild(addTitleBox());
   form.appendChild(addSubmitButton());
