@@ -1,0 +1,28 @@
+body {
+  padding: 5px 60px 5px 60px;
+}
+
+.heading {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 7px;
+  padding: 7px 0px 7px 0px;
+  background: linear-gradient(#f5f5f5, #858585);
+}
+
+.container {
+  height: 650px;
+  border: 1px solid black;
+  border-radius: 7px;
+  background: linear-gradient(#f5f5f5, #a5a5a5);
+  overflow: scroll;
+}
+
+.newTodoList {
+  font-size: small;
+  text-align: center;
+  border: 1px solid black;
+  margin: 1% 0% 0% 35%;
+  padding: 1%;
+  width: 25%;
+}
