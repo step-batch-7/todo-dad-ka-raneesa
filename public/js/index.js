@@ -87,12 +87,14 @@ const createTodoLists = function(task) {
 const displayTodoList = function(event) {
   const [task] = event.path;
   const taskId = task.id;
+  const returnButton = createImg('svg/return.svg', 'svg', loadTasks);
   sendHttpGet('/tasks', text => {
     const todoListsContainer = document.querySelector('.todoLists');
     const todoListsJson = JSON.parse(text);
     todoListsContainer.innerHTML = '';
     const [todo] = todoListsJson.filter(task => task.id === +taskId);
     const list = createTodoLists(todo);
+    todoListsContainer.appendChild(returnButton);
     todoListsContainer.appendChild(list);
   });
 };
@@ -105,21 +107,29 @@ const createTitles = function(task) {
   return title;
 };
 
-const generateTasks = function(text) {
+const generateTodoLists = function(todoListsJson) {
   const todoListsContainer = document.querySelector('.todoLists');
-  const todoTitlesContainer = document.querySelector('.todoListDisplay');
-  const todoListsJson = JSON.parse(text);
-  const todoLists = todoListsJson.map(createTodoLists);
-  const todoTitles = todoListsJson.map(createTitles);
   todoListsContainer.innerHTML = '';
-  todoTitlesContainer.innerHTML = '';
-  addHeaderToDisplay(); 
+  const todoLists = todoListsJson.map(createTodoLists);
   todoLists.forEach(task => todoListsContainer.appendChild(task));
+};
+
+const generateTodoTitles = function(todoListsJson) {
+  const todoTitlesContainer = document.querySelector('.todoListDisplay');
+  const todoTitles = todoListsJson.map(createTitles);
+  todoTitlesContainer.innerHTML = '';
+  addHeaderToDisplay();
   todoTitles.forEach(title => {
     const breakTag = document.createElement('br');
     todoTitlesContainer.appendChild(title);
     todoTitlesContainer.appendChild(breakTag);
   });
+};
+
+const generateTasks = function(text) {
+  const todoListsJson = JSON.parse(text);
+  generateTodoLists(todoListsJson);
+  generateTodoTitles(todoListsJson);
 };
 
 const deleteTask = function(event) {
@@ -153,7 +163,6 @@ const loadTasks = function() {
 
 const main = function() {
   setupTodoAdder();
-  // addHeaderToDisplay();
   loadTasks();
 };
 
