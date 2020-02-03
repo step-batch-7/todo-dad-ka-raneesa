@@ -1,4 +1,5 @@
 const getTodoAdder = () => document.querySelector('.todoAdder');
+const getTodoListDisplay = () => document.querySelector('.todoListDisplay');
 
 const addHeader = function() {
   const todoAdder = getTodoAdder();
@@ -34,6 +35,13 @@ const createForm = function() {
   todoAdder.appendChild(form);
 };
 
+const addHeaderToDisplay = function() {
+  const todoAdder = getTodoListDisplay();
+  const header = document.createElement('h1');
+  header.textContent = 'List:';
+  todoAdder.appendChild(header);
+};
+
 const setupTodoAdder = function() {
   addHeader();
   createForm();
@@ -41,6 +49,7 @@ const setupTodoAdder = function() {
 
 const main = function() {
   setupTodoAdder();
+  addHeaderToDisplay();
 };
 
 window.onload = main;
