@@ -50,6 +50,7 @@ tasks:
 
   --DONE-- * Write an html page of to load page
   --DONE-- * Add server
-  * Create text boxes, so that user can enter title and lists
   --DONE-- * Show entered lists along with title
+  --DONE-- * Create an subTask Adder to todo
+  * Create text boxes, so that user can enter title and lists
 
