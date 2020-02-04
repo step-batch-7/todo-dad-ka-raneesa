@@ -79,3 +79,18 @@ body {
 .task-title {
   cursor: pointer;
 }
+
+#subTask {
+  height: 15px;
+  width: 50%;
+}
+
+.subTaskAdder {
+  display: flex;
+}
+
+.addButton {
+  height: 15px;
+  cursor: pointer;
+  padding-top: 3px;
+}

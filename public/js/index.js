@@ -75,12 +75,40 @@ const createTaskHeader = function(task) {
   return taskHeader;
 };
 
+const createSubTaskTextBox = function() {
+  const subTaskBox = document.createElement('input');
+  subTaskBox.setAttribute('type', 'text');
+  subTaskBox.setAttribute('name', 'subTask');
+  subTaskBox.setAttribute('placeholder', 'Enter task here');
+  subTaskBox.id = 'subTask';
+  return subTaskBox;
+};
+
+const addSubTask = function() {
+};
+
+const createSubTaskAdder = function() {
+  const subTaskAdder = document.createElement('div');
+  const textBox = createSubTaskTextBox();
+  const addButton = createImg('svg/add.svg', 'addButton', addSubTask);
+  subTaskAdder.classList.add('subTaskAdder');
+  subTaskAdder.appendChild(textBox);
+  subTaskAdder.appendChild(addButton);
+  return subTaskAdder;
+};
+
+const createSubTasksContainer = function(task) {
+  const tasksContainer = document.createElement('div');
+  tasksContainer.appendChild(createSubTaskAdder());
+  return tasksContainer;
+};
+
 const createTodoLists = function(task) {
   const taskContainer = document.createElement('div');
-  const taskHeader = createTaskHeader(task);
   taskContainer.id = task.id;
   taskContainer.classList.add('task-container');
-  taskContainer.appendChild(taskHeader);
+  taskContainer.appendChild(createTaskHeader(task));
+  taskContainer.appendChild(createSubTasksContainer(task));
   return taskContainer;
 };
 
