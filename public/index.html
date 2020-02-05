@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Todo</title>
-    <link rel="stylesheet" href="css/index.css" />
-    <script src="js/index.js"></script>
-  </head>
-  <body>
-    <h1 class="heading">TODO</h1>
-    <div class="container">
-      <div class="display">
-        <div class="todoAdder"></div>
-        <div class="todoListDisplay"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Todo</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/index.js"></script>
+</head>
+
+<body>
+  <h1 class="heading">TODO</h1>
+  <div class="container">
+    <div class="display">
+      <div class="todoAdder">
+        <h1>Create A New Todo List</h1>
+        <form id="createTaskBar" action="createTodo" method="POST">
+          <input type="title" name="title" placeholder="Enter Todo Title" id="title">
+          </input>
+          <input type="submit" value="create"></input>
+        </form>
       </div>
-      <div class="todoLists"></div>
+      <div class="todoListDisplay"></div>
     </div>
-  </body>
+    <div class="todoLists"></div>
+  </div>
+</body>
+
 </html>

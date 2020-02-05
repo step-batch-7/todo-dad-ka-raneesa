@@ -1,54 +1,12 @@
-const getTodoAdder = () => document.querySelector('.todoAdder');
-const getTodoListDisplay = () => document.querySelector('.todoListDisplay');
-
 const statusCodes = {
   'OK': 200
 };
 
-const addHeader = function() {
-  const todoAdder = getTodoAdder();
-  const header = document.createElement('h1');
-  header.textContent = 'Create New Todo List';
-  todoAdder.appendChild(header);
-};
-
-const addTitleBox = function() {
-  const titleBox = document.createElement('input');
-  titleBox.setAttribute('type', 'text');
-  titleBox.setAttribute('name', 'title');
-  titleBox.setAttribute('placeholder', 'Enter Todo Title');
-  titleBox.id = 'title';
-  return titleBox;
-};
-
-const addSubmitButton = function() {
-  const submitButton = document.createElement('input');
-  submitButton.setAttribute('type', 'submit');
-  submitButton.setAttribute('value', 'create');
-  return submitButton;
-};
-
-const createForm = function() {
-  const todoAdder = getTodoAdder();
-  const form = document.createElement('form');
-  form.id = 'createTaskBar';
-  form.setAttribute('action', 'createTodo');
-  form.setAttribute('method', 'POST');
-  form.appendChild(addTitleBox());
-  form.appendChild(addSubmitButton());
-  todoAdder.appendChild(form);
-};
-
 const addHeaderToDisplay = function() {
-  const todoAdder = getTodoListDisplay();
+  const todoAdder = document.querySelector('.todoListDisplay');
   const header = document.createElement('h1');
   header.textContent = 'List:';
   todoAdder.appendChild(header);
-};
-
-const setupTodoAdder = function() {
-  addHeader();
-  createForm();
 };
 
 const postHttpMsg = function(url, callback, message) {
@@ -190,9 +148,4 @@ const loadTasks = function() {
   sendHttpGet('/tasks', generateTasks);
 };
 
-const main = function() {
-  setupTodoAdder();
-  loadTasks();
-};
-
-window.onload = main;
+window.onload = loadTasks;
