@@ -9,15 +9,14 @@ const addHeaderToDisplay = function() {
   todoAdder.appendChild(header);
 };
 
-const postHttpMsg = function(url, callback, message) {
+const sendXHR = function(method, url, message, callback) {
   const xhr = new XMLHttpRequest();
   xhr.onload = function() {
     if (this.status === statusCodes.OK) {
       callback(this.responseText);
     }
   };
-  xhr.open('POST', url);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.open(method, url);
   xhr.send(message);
 };
 
@@ -35,7 +34,7 @@ const createTaskHeader = function(task) {
 
 const createTodoList = function() {
   const textBox = event.target.previousElementSibling;
-  postHttpMsg('/createTodo', generateTasks, `title=${textBox.value}`);
+  sendXHR('POST', '/createTodo', `title=${textBox.value}`, generateTasks);
   textBox.value = '';
 };
 
@@ -44,7 +43,7 @@ const createSubTaskTextBox = function() {
   subTaskBox.setAttribute('type', 'text');
   subTaskBox.setAttribute('name', 'subTask');
   subTaskBox.setAttribute('placeholder', 'Enter task here');
-  subTaskBox.id = 'subTask';
+  subTaskBox.classList.add('subTask');
   return subTaskBox;
 };
 
@@ -80,7 +79,7 @@ const displayTodoList = function(event) {
   const [task] = event.path;
   const taskId = task.id;
   const returnButton = createImg('svg/return.svg', 'svg', loadTasks);
-  sendHttpGet('/tasks', text => {
+  sendXHR('GET', '/tasks', '', text => {
     const todoListsContainer = document.querySelector('.todoLists');
     const todoListsJson = JSON.parse(text);
     todoListsContainer.innerHTML = '';
@@ -128,7 +127,7 @@ const generateTasks = function(text) {
 const deleteTask = function(event) {
   const [, , task] = event.path;
   const taskId = task.id;
-  postHttpMsg('/removeTodo', generateTasks, `id=${taskId}`);
+  sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTasks);
 };
 
 const createImg = function(src, className, eventListener) {
@@ -139,19 +138,8 @@ const createImg = function(src, className, eventListener) {
   return img;
 };
 
-const sendHttpGet = function(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.onload = function() {
-    if (this.status === statusCodes.OK) {
-      callback(this.responseText);
-    }
-  };
-  xhr.open('GET', url);
-  xhr.send();
-};
-
 const loadTasks = function() {
-  sendHttpGet('/tasks', generateTasks);
+  sendXHR('GET', '/tasks', '', generateTasks);
 };
 
 window.onload = loadTasks;

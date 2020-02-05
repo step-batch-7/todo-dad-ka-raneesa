@@ -80,7 +80,7 @@ body {
   cursor: pointer;
 }
 
-#subTask {
+.subTask {
   height: 15px;
   width: 50%;
 }
