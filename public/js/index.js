@@ -2,13 +2,6 @@ const statusCodes = {
   'OK': 200
 };
 
-const addHeaderToDisplay = function() {
-  const todoAdder = document.querySelector('.todoListDisplay');
-  const header = document.createElement('h1');
-  header.textContent = 'List:';
-  todoAdder.appendChild(header);
-};
-
 const sendXHR = function(method, url, message, callback) {
   const xhr = new XMLHttpRequest();
   xhr.onload = function() {
@@ -20,108 +13,10 @@ const sendXHR = function(method, url, message, callback) {
   xhr.send(message);
 };
 
-const createTaskHeader = function(task) {
-  const taskHeader = document.createElement('div');
-  const taskTitle = document.createElement('h3');
-  const img = createImg('svg/delete.svg', 'svg', deleteTask);
-  taskTitle.classList.add('task-title');
-  taskTitle.textContent = task.title;
-  taskHeader.classList.add('task-header');
-  taskHeader.appendChild(taskTitle);
-  taskHeader.appendChild(img);
-  return taskHeader;
-};
-
-const createTodoList = function() {
+const createTodo = function() {
   const textBox = event.target.previousElementSibling;
   sendXHR('POST', '/createTodo', `title=${textBox.value}`, generateTasks);
   textBox.value = '';
-};
-
-const createSubTaskTextBox = function() {
-  const subTaskBox = document.createElement('input');
-  subTaskBox.setAttribute('type', 'text');
-  subTaskBox.setAttribute('name', 'subTask');
-  subTaskBox.setAttribute('placeholder', 'Enter task here');
-  subTaskBox.classList.add('subTask');
-  return subTaskBox;
-};
-
-const addSubTask = function() {
-};
-
-const createSubTaskAdder = function() {
-  const subTaskAdder = document.createElement('div');
-  const textBox = createSubTaskTextBox();
-  const addButton = createImg('svg/add.svg', 'addButton', addSubTask);
-  subTaskAdder.classList.add('subTaskAdder');
-  subTaskAdder.appendChild(textBox);
-  subTaskAdder.appendChild(addButton);
-  return subTaskAdder;
-};
-
-const createSubTasksContainer = function(task) {
-  const tasksContainer = document.createElement('div');
-  tasksContainer.appendChild(createSubTaskAdder());
-  return tasksContainer;
-};
-
-const createTodoLists = function(task) {
-  const taskContainer = document.createElement('div');
-  taskContainer.id = task.id;
-  taskContainer.classList.add('task-container');
-  taskContainer.appendChild(createTaskHeader(task));
-  taskContainer.appendChild(createSubTasksContainer(task));
-  return taskContainer;
-};
-
-const displayTodoList = function(event) {
-  const [task] = event.path;
-  const taskId = task.id;
-  const returnButton = createImg('svg/return.svg', 'svg', loadTasks);
-  sendXHR('GET', '/tasks', '', text => {
-    const todoListsContainer = document.querySelector('.todoLists');
-    const todoListsJson = JSON.parse(text);
-    todoListsContainer.innerHTML = '';
-    const [todo] = todoListsJson.filter(task => task.id === +taskId);
-    const list = createTodoLists(todo);
-    todoListsContainer.appendChild(returnButton);
-    todoListsContainer.appendChild(list);
-  });
-};
-
-const createTitles = function(task) {
-  const title = document.createElement('div');
-  title.id = task.id;
-  title.textContent = task.title;
-  title.classList.add('todo-title');
-  title.addEventListener('click', displayTodoList);
-  return title;
-};
-
-const generateTodoLists = function(todoListsJson) {
-  const todoListsContainer = document.querySelector('.todoLists');
-  todoListsContainer.innerHTML = '';
-  const todoLists = todoListsJson.map(createTodoLists);
-  todoLists.forEach(task => todoListsContainer.appendChild(task));
-};
-
-const generateTodoTitles = function(todoListsJson) {
-  const todoTitlesContainer = document.querySelector('.todoListDisplay');
-  const todoTitles = todoListsJson.map(createTitles);
-  todoTitlesContainer.innerHTML = '';
-  addHeaderToDisplay();
-  todoTitles.forEach(title => {
-    const breakTag = document.createElement('br');
-    todoTitlesContainer.appendChild(title);
-    todoTitlesContainer.appendChild(breakTag);
-  });
-};
-
-const generateTasks = function(text) {
-  const todoListsJson = JSON.parse(text);
-  generateTodoLists(todoListsJson);
-  generateTodoTitles(todoListsJson);
 };
 
 const deleteTask = function(event) {
@@ -130,12 +25,77 @@ const deleteTask = function(event) {
   sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTasks);
 };
 
+const addSubTask = function() {};
+
+const createTaskHeader = function(task) {
+  const img = createImg('svg/delete.svg', 'svg', 'deleteTask');
+  const taskHeader = `<div class="task-header">
+  <h3 class="task-title">${task.title}</h3>${img}
+  </div>`;
+  return taskHeader;
+};
+
+const createSubTaskAdder = function() {
+  const addButton = createImg('svg/add.svg', 'addButton', 'addSubTask');
+  const subTaskAdder = `<div class="subTaskAdder">
+    <input type = "text" name = "subTask" 
+    placeholder="Enter Enter task here" class="subTask">${addButton}
+  </div>`;
+  return subTaskAdder;
+};
+
+const createSubTasksContainer = function(task) {
+  return `<div>${createSubTaskAdder()}</div>`;
+};
+
+const createTodoLists = function(todoList, task) {
+  const taskContainer = `<div id="${task.id}" class="task-container">
+  ${createTaskHeader(task)}${createSubTasksContainer(task)}
+  </div>`;
+  return todoList + taskContainer;
+};
+
+const generateTodoLists = function(todoListsJson) {
+  const todoListsContainer = document.querySelector('.todoLists');
+  const todoLists = todoListsJson.reduce(createTodoLists, '');
+  todoListsContainer.innerHTML = todoLists;
+};
+
+const displayTodoList = function(event) {
+  const [task] = event.path;
+  const taskId = task.id;
+  const returnButton = createImg('svg/return.svg', 'svg', 'loadTasks');
+  sendXHR('GET', '/tasks', '', text => {
+    const todoListsContainer = document.querySelector('.todoLists');
+    const todoListsJson = JSON.parse(text);
+    todoListsContainer.innerHTML = '';
+    const [todo] = todoListsJson.filter(task => task.id === +taskId);
+    const list = createTodoLists('', todo);
+    todoListsContainer.innerHTML = returnButton + list;
+  });
+};
+
+const createTitles = function(titlesList, task) {
+  const title = `<div id="${task.id}" class="todo-title" 
+  onclick="displayTodoList(event)">${task.title}</div>`;
+  return titlesList + title;
+};
+
+const generateTodoTitles = function(todoListsJson) {
+  const todoTitlesContainer = document.querySelector('.todoListDisplay');
+  const titlesList = todoListsJson.reduce(createTitles, '');
+  todoTitlesContainer.innerHTML = `<h1>List:</h1>${titlesList}`;
+};
+
+const generateTasks = function(text) {
+  const todoListsJson = JSON.parse(text);
+  generateTodoLists(todoListsJson);
+  generateTodoTitles(todoListsJson);
+};
+
 const createImg = function(src, className, eventListener) {
-  const img = document.createElement('img');
-  img.setAttribute('src', src);
-  img.classList.add(className);
-  img.addEventListener('click', eventListener);
-  return img;
+  return `<img src="${src}" class="${className}" 
+  onclick="${eventListener}(event)"></img>`;
 };
 
 const loadTasks = function() {
