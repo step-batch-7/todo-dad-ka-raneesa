@@ -19,16 +19,23 @@ const createTodo = function() {
   textBox.value = '';
 };
 
-const deleteTask = function(event) {
+const deleteTodo = function(event) {
   const [, , task] = event.path;
   const taskId = task.id;
   sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTasks);
 };
 
-const addSubTask = function() {};
+const addSubTask = function(event) {
+  const textBox = event.target.previousElementSibling;
+  const [, , , list] = event.path;
+  const message = `id=${list.id}&work=${textBox.value}`;
+  sendXHR('POST', '/createTask', message, generateTasks);
+};
+
+const removeSubTask = function() { };
 
 const createTaskHeader = function(task) {
-  const img = createImg('svg/delete.svg', 'svg', 'deleteTask');
+  const img = createImg('svg/delete.svg', 'svg', 'deleteTodo');
   const taskHeader = `<div class="task-header">
   <h3 class="task-title">${task.title}</h3>${img}
   </div>`;
@@ -44,8 +51,18 @@ const createSubTaskAdder = function() {
   return subTaskAdder;
 };
 
+const generateSubTasks = (allTasksHtml, task) => {
+  const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
+  const taskHtml = `<div id="${task.id}" class="task-item">
+    <p><input type="checkbox"> ${task.work}</p>${img}
+    </div>`;
+  return allTasksHtml + taskHtml;
+};
+
 const createSubTasksContainer = function(task) {
-  return `<div>${createSubTaskAdder()}</div>`;
+  return `<div>${createSubTaskAdder()}
+   <div class="tasks">${task.tasks.reduce(generateSubTasks, '')}</div>
+   </div>`;
 };
 
 const createTodoLists = function(todoList, task) {
