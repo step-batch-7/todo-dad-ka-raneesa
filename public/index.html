@@ -16,11 +16,11 @@
     <div class="display">
       <div class="todoAdder">
         <h1>Create A New Todo List</h1>
-        <form id="createTaskBar" action="createTodo" method="POST">
+        <div id="createTaskBar" action="createTodo" method="POST">
           <input type="title" name="title" placeholder="Enter Todo Title" id="title">
           </input>
-          <input type="submit" value="create"></input>
-        </form>
+          <input type="submit" value="create" onclick="createTodoList()"></input>
+        </div>
       </div>
       <div class="todoListDisplay"></div>
     </div>

@@ -33,6 +33,12 @@ const createTaskHeader = function(task) {
   return taskHeader;
 };
 
+const createTodoList = function() {
+  const textBox = event.target.previousElementSibling;
+  postHttpMsg('/createTodo', generateTasks, `title=${textBox.value}`);
+  textBox.value = '';
+};
+
 const createSubTaskTextBox = function() {
   const subTaskBox = document.createElement('input');
   subTaskBox.setAttribute('type', 'text');
