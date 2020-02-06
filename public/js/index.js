@@ -32,7 +32,11 @@ const addSubTask = function(event) {
   sendXHR('POST', '/createTask', message, generateTasks);
 };
 
-const removeSubTask = function() { };
+const removeSubTask = function(event) {
+  const [, taskItem, , , list] = event.path;
+  const message = `taskId=${taskItem.id}&listId=${list.id}`;
+  sendXHR('POST', '/removeTask', message, generateTasks);
+};
 
 const createTaskHeader = function(task) {
   const img = createImg('svg/delete.svg', 'svg', 'deleteTodo');
