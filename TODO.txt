@@ -1,8 +1,8 @@
 Requirements:
  --DONE-- 1. Create one or more to-do list with a title
  --DONE-- 2. View all the to-do lists
-  3. Add an item to a to-do list
-  4. Delete an item from to-do list
+ --DONE-- 3. Add an item to a to-do list
+ --DONE-- 4. Delete an item from to-do list
   5. Mark an item as done and undone
  --DONE-- 6. Delete a todo list
 
@@ -52,5 +52,6 @@ tasks:
   --DONE-- * Add server
   --DONE-- * Show entered lists along with title
   --DONE-- * Create an subTask Adder to todo
-  * Create text boxes, so that user can enter title and lists
-
+  --DONE-- * Create text boxes, so that user can enter title and lists
+  --DONE-- * Delete a todo list
+  --DONE-- * Delete an item from todo list
