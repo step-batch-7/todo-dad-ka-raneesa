@@ -38,6 +38,12 @@ const removeSubTask = function(event) {
   sendXHR('POST', '/removeTask', message, generateTasks);
 };
 
+const completeTask = event => {
+  const [, , taskItem, , , list] = event.path;
+  const message = `taskId=${taskItem.id}&listId=${list.id}`;
+  sendXHR('POST', '/completeTask', message, generateTasks);
+};
+
 const createImg = function(src, className, eventListener) {
   return `<img src="${src}" class="${className}" 
   onclick="${eventListener}(event)"></img>`;
@@ -61,9 +67,15 @@ const createSubTaskAdder = function() {
 };
 
 const generateSubTasks = (allTasksHtml, task) => {
+  const { id, work, isDone } = task;
   const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
-  const taskHtml = `<div id="${task.id}" class="task-item">
-    <p><input type="checkbox"> ${task.work}</p>${img}
+  let html = `<input type="checkbox" onclick="completeTask(event)">${work}`;
+  if (isDone) {
+    html = `<input type="checkbox" onclick="completeTask(event)" checked>
+     <strike>${work}</strike>`;
+  }
+  const taskHtml = `<div id="${id}" class="task-item">
+    <p>${html}</p>${img}
     </div>`;
   return allTasksHtml + taskHtml;
 };
