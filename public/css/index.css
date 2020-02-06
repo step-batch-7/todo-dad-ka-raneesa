@@ -15,7 +15,7 @@ body {
   display: flex;
   border: 1px solid black;
   border-radius: 7px;
-  background: linear-gradient(#f5f5f5, #c5c5c5);
+  background: linear-gradient(#f5f5f5, #b5b5b5);
   word-wrap: break-word;
   word-break: break-all;
 }

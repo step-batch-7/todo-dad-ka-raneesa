@@ -38,6 +38,11 @@ const removeSubTask = function(event) {
   sendXHR('POST', '/removeTask', message, generateTasks);
 };
 
+const createImg = function(src, className, eventListener) {
+  return `<img src="${src}" class="${className}" 
+  onclick="${eventListener}(event)"></img>`;
+};
+
 const createTaskHeader = function(task) {
   const img = createImg('svg/delete.svg', 'svg', 'deleteTodo');
   const taskHeader = `<div class="task-header">
@@ -112,11 +117,6 @@ const generateTasks = function(text) {
   const todoListsJson = JSON.parse(text);
   generateTodoLists(todoListsJson);
   generateTodoTitles(todoListsJson);
-};
-
-const createImg = function(src, className, eventListener) {
-  return `<img src="${src}" class="${className}" 
-  onclick="${eventListener}(event)"></img>`;
 };
 
 const loadTasks = function() {

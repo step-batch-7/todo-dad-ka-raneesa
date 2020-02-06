@@ -55,3 +55,4 @@ tasks:
   --DONE-- * Create text boxes, so that user can enter title and lists
   --DONE-- * Delete a todo list
   --DONE-- * Delete an item from todo list
+  --DONE-- * write and read data from todoLists.json
