@@ -15,7 +15,8 @@ const sendXHR = function(method, url, message, callback) {
 
 const createTodo = function() {
   const textBox = event.target.previousElementSibling;
-  sendXHR('POST', '/createTodo', `title=${textBox.value}`, generateTasks);
+  const message = `title=${textBox.value}`;
+  textBox.value && sendXHR('POST', '/createTodo', message, generateTasks);
   textBox.value = '';
 };
 
@@ -29,7 +30,8 @@ const addSubTask = function(event) {
   const textBox = event.target.previousElementSibling;
   const [, , , list] = event.path;
   const message = `id=${list.id}&work=${textBox.value}`;
-  sendXHR('POST', '/createTask', message, generateTasks);
+  textBox.value && sendXHR('POST', '/createTask', message, generateTasks);
+  textBox.value = '';
 };
 
 const removeSubTask = function(event) {
