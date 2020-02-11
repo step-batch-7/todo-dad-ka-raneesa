@@ -98,11 +98,23 @@ describe('POST changeStatus', function() {
   });
 });
 
-describe('POST renameTitle', function() {
-  it('Should rename title of given todo id', function(done) {
+describe('POST renameTodo', function() {
+  it('Should rename todo title of given todo id', function(done) {
     request(app.connectionListener.bind(app))
-      .post('/renameTitle')
+      .post('/renameTodo')
       .send('newTitle=Shankar&todoId=1')
+      .set('Accept', '*/*')
+      .expect(200)
+      .expect('Content-Type', CONTENT_TYPES.json)
+      .expect(/Shankar/, done);
+  });
+});
+
+describe('POST renameTask', function() {
+  it('Should rename task of given todo,task id', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/renameTask')
+      .send('newTitle=Shankar&todoId=1&taskId=1')
       .set('Accept', '*/*')
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)

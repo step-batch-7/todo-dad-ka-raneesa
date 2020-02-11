@@ -51,24 +51,18 @@ const createImg = function(src, className, eventListener) {
   onclick="${eventListener}()"></img>`;
 };
 
-const renameTitle = function(todoId) {
+const renameTodo = function() {
+  const [, , todo] = event.path;
   event.target.contentEditable = false;
   const newTitle = event.target.innerText;
-  const message = `newTitle=${newTitle}&todoId=${todoId}`;
-  sendXHR('POST', '/renameTitle', message, generateTasks);
-};
-
-const makeTitleEditable = function() {
-  const todoId = event.target.parentElement.parentElement.id;
-  event.target.contentEditable = true;
-  event.target.focus();
-  event.target.onblur = renameTitle.bind(null, todoId);
+  const message = `newTitle=${newTitle}&todoId=${todo.id}`;
+  sendXHR('POST', '/renameTodo', message, generateTasks);
 };
 
 const createTaskHeader = function(task) {
   const deleteImg = createImg('svg/delete.svg', 'deleteButton', 'deleteTodo');
   const taskHeader = `<div class="task-header">
-  <h3 class="task-title" onclick=makeTitleEditable() >${task.title}</h3>
+  <h3 class="task-title" onclick="makeContentEditable(renameTodo)" >${task.title}</h3>
   <div class="options">${deleteImg}</div>
   </div>`;
   return taskHeader;
@@ -83,16 +77,27 @@ const createSubTaskAdder = function() {
   return subTaskAdder;
 };
 
+const renameTask = function() {
+  const [, , task, , , todo] = event.path;
+  event.target.contentEditable = false;
+  const newTitle = event.target.innerText;
+  const message = `newTitle=${newTitle}&todoId=${todo.id}&taskId=${task.id}`;
+  sendXHR('POST', '/renameTask', message, generateTasks);
+};
+
+const makeContentEditable = function(callback) {
+  event.target.contentEditable = true;
+  event.target.focus();
+  event.target.onblur = callback;
+};
+
 const generateSubTasks = (allTasksHtml, task) => {
   const { id, work, isDone } = task;
   const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
-  let html = `<input type="checkbox" onclick="changeStatus()">${work}`;
-  if (isDone) {
-    html = `<input type="checkbox" onclick="changeStatus()" checked>
-     <strike>${work}</strike>`;
-  }
+  const html = `<input type="checkbox" onclick="changeStatus()" 
+  ${isDone ? 'checked' : ''}><p onclick="makeContentEditable(renameTask)">${work}</p>`;
   const taskHtml = `<div id="${id}" class="task-item">
-    <p>${html}</p>${img}
+    <div class="taskStatus">${html}</div>${img}
     </div>`;
   return allTasksHtml + taskHtml;
 };
