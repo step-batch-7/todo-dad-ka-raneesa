@@ -75,10 +75,10 @@ body {
 
 .task-title {
   margin: 1px;
+  padding-top: 7px;
 }
 
-.todo-title,
-.task-title {
+.todo-title {
   padding-top: 7px;
   cursor: pointer;
 }
@@ -106,6 +106,16 @@ body {
   margin: 0%;
   margin-left: 8px;
 }
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+  height: 25px;
+  cursor: pointer;
+  margin: 0% 10% 0% 10%;
+}
+
 .task-item {
   display: flex;
   margin: 1%;
@@ -113,4 +123,12 @@ body {
 
 .task-item p {
   margin: 0%;
+}
+
+.options {
+  width: 10%;
+}
+
+.rename {
+  width: 80%;
 }

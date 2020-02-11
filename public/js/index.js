@@ -21,7 +21,7 @@ const createTodo = function() {
 };
 
 const deleteTodo = function(event) {
-  const [, , task] = event.path;
+  const [, , , task] = event.path;
   const taskId = task.id;
   sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTasks);
 };
@@ -51,10 +51,25 @@ const createImg = function(src, className, eventListener) {
   onclick="${eventListener}(event)"></img>`;
 };
 
+const renameTitle = function(todoId) {
+  event.target.contentEditable = false;
+  const newTitle = event.target.innerText;
+  const message = `newTitle=${newTitle}&todoId=${todoId}`;
+  sendXHR('POST', '/renameTitle', message, generateTasks);
+};
+
+const makeTitleEditable = function() {
+  const todoId = event.target.parentElement.parentElement.id;
+  event.target.contentEditable = true;
+  event.target.focus();
+  event.target.onblur = renameTitle.bind(null, todoId);
+};
+
 const createTaskHeader = function(task) {
-  const img = createImg('svg/delete.svg', 'svg', 'deleteTodo');
+  const deleteImg = createImg('svg/delete.svg', 'deleteButton', 'deleteTodo');
   const taskHeader = `<div class="task-header">
-  <h3 class="task-title">${task.title}</h3>${img}
+  <h3 class="task-title" onclick=makeTitleEditable() >${task.title}</h3>
+  <div class="options">${deleteImg}</div>
   </div>`;
   return taskHeader;
 };
