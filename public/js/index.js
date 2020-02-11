@@ -20,13 +20,13 @@ const createTodo = function() {
   textBox.value = '';
 };
 
-const deleteTodo = function(event) {
+const deleteTodo = function() {
   const [, , , task] = event.path;
   const taskId = task.id;
   sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTasks);
 };
 
-const addSubTask = function(event) {
+const addSubTask = function() {
   const textBox = event.target.previousElementSibling;
   const [, , , list] = event.path;
   const message = `id=${list.id}&work=${textBox.value}`;
@@ -34,21 +34,21 @@ const addSubTask = function(event) {
   textBox.value = '';
 };
 
-const removeSubTask = function(event) {
-  const [, taskItem, , , list] = event.path;
-  const message = `taskId=${taskItem.id}&listId=${list.id}`;
+const removeSubTask = function() {
+  const [, task, , , todo] = event.path;
+  const message = `todoId=${todo.id}&taskId=${task.id}`;
   sendXHR('POST', '/removeTask', message, generateTasks);
 };
 
-const completeTask = event => {
-  const [, , taskItem, , , list] = event.path;
-  const message = `taskId=${taskItem.id}&listId=${list.id}`;
-  sendXHR('POST', '/completeTask', message, generateTasks);
+const changeStatus = () => {
+  const [, , task, , , todo] = event.path;
+  const message = `todoId=${todo.id}&taskId=${task.id}`;
+  sendXHR('POST', '/changeStatus', message, generateTasks);
 };
 
 const createImg = function(src, className, eventListener) {
   return `<img src="${src}" class="${className}" 
-  onclick="${eventListener}(event)"></img>`;
+  onclick="${eventListener}()"></img>`;
 };
 
 const renameTitle = function(todoId) {
@@ -86,9 +86,9 @@ const createSubTaskAdder = function() {
 const generateSubTasks = (allTasksHtml, task) => {
   const { id, work, isDone } = task;
   const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
-  let html = `<input type="checkbox" onclick="completeTask(event)">${work}`;
+  let html = `<input type="checkbox" onclick="changeStatus()">${work}`;
   if (isDone) {
-    html = `<input type="checkbox" onclick="completeTask(event)" checked>
+    html = `<input type="checkbox" onclick="changeStatus()" checked>
      <strike>${work}</strike>`;
   }
   const taskHtml = `<div id="${id}" class="task-item">
@@ -116,7 +116,7 @@ const generateTodoLists = function(todoListsJson) {
   todoListsContainer.innerHTML = todoLists;
 };
 
-const displayTodoList = function(event) {
+const displayTodoList = function() {
   const [task] = event.path;
   const taskId = task.id;
   const returnButton = createImg('svg/return.svg', 'svg', 'loadTasks');
@@ -132,7 +132,7 @@ const displayTodoList = function(event) {
 
 const createTitles = function(titlesList, task) {
   const title = `<div id="${task.id}" class="todo-title" 
-  onclick="displayTodoList(event)">${task.title}</div>`;
+  onclick="displayTodoList()">${task.title}</div>`;
   return titlesList + title;
 };
 
