@@ -7,7 +7,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Todo</title>
   <link rel="stylesheet" href="css/index.css" />
-  <script src="js/index.js"></script>
+  <script src="js/request.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/search.js"></script>
 </head>
 
 <body>
@@ -22,8 +24,10 @@
           <input type="submit" value="create" onclick="createTodo()"></input>
         </div>
       </div>
+      <input type="search" placeholder="Search Todo Here..." id="todoSearch" onfocus="initiateSearch()">
+      <input type="search" placeholder="Search Task Here..." id="taskSearch">
     </div>
-    <div class="todoLists"></div>
+    <div class="todoList"></div>
   </div>
 </body>
 
