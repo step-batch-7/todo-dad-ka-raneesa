@@ -7,10 +7,12 @@
   "devDependencies": {
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
+    "sinon": "^8.1.1",
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "mocha"
+    "start": "export DATA_STORE=/Users/step25/projects/todo-dad-ka-raneesa/data/todoLists.json;node server.js",
+    "test": "export DATA_STORE=/Users/step25/projects/todo-dad-ka-raneesa/test/testData.json;mocha"
   },
   "repository": {
     "type": "git",
