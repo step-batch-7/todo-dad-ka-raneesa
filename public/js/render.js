@@ -7,7 +7,8 @@ const createImg = function(src, className, eventListener) {
 const createTaskHeader = function(task) {
   const deleteImg = createImg('svg/delete.svg', 'deleteButton', 'deleteTodo');
   const taskHeader = `<div class="todo-header">
-  <h3 class="todo-title" onclick="makeContentEditable(renameTodo)" >${task.title}</h3>
+  <h3 class="todo-title" onclick="makeContentEditable(renameTodo)" >
+  ${task.title}</h3>
   <div class="options">${deleteImg}</div>
   </div>`;
   return taskHeader;

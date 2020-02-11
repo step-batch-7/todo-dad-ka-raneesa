@@ -7,10 +7,10 @@ Requirements:
  --DONE-- 6. Delete a todo list
 
 Next Requirements:
---DONE--  1. Edit title: Ability to edit their existing todo list title.
---DONE--  2. Edit tasks: Ability to edit their existing tasks.
-  3. Search by title:  Search the list by its title words.
-  4. Search by tasks: Search the todo item by its matched words.
+ --DONE-- 1. Edit title: Ability to edit their existing todo list title.
+ --DONE-- 2. Edit tasks: Ability to edit their existing tasks.
+ --DONE-- 4. Search by tasks: Search the todo item by its matched words.
+ --DONE-- 3. Search by title:  Search the list by its title words.
   5. User todo's: A user can log in and log out off their account and work on their own todos.
   6. Home Page: If not logged in it is a login page else it is the user's todo page/dashboard.
 
@@ -28,13 +28,15 @@ todo lists :
         {
            id:number,
            title: some title,
-           lists: [
+           tasks: [
                     {
-                      list: list1,
+                      id:number,
+                      work: list1,
                       isDone: false
                     },
                     {
-                      list: list2,
+                      id:number,
+                      work: list2,
                       isDone: false
                     }
                   ]
