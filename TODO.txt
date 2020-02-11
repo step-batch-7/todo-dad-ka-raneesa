@@ -8,7 +8,7 @@ Requirements:
 
 Next Requirements:
 --DONE--  1. Edit title: Ability to edit their existing todo list title.
-  2. Edit tasks: Ability to edit their existing tasks.
+--DONE--  2. Edit tasks: Ability to edit their existing tasks.
   3. Search by title:  Search the list by its title words.
   4. Search by tasks: Search the todo item by its matched words.
   5. User todo's: A user can log in and log out off their account and work on their own todos.

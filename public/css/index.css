@@ -1,5 +1,5 @@
 body {
-  padding: 5px 60px 5px 60px;
+  padding: 5vh;
 }
 
 .heading {
@@ -11,8 +11,9 @@ body {
 }
 
 .container {
-  height: 650px;
   display: flex;
+  flex-direction: column;
+  height: 80vh;
   border: 1px solid black;
   border-radius: 7px;
   background: linear-gradient(#f5f5f5, #b5b5b5);
@@ -20,28 +21,19 @@ body {
   word-break: break-all;
 }
 
+.display {
+  flex: 15%;
+  border-bottom: 1px solid black;
+}
+
 #title {
   margin: 0px 10px 0px 20px;
 }
 
-.display {
-  width: 22%;
-}
-
 .todoAdder {
   font-size: small;
-  text-align: left;
-  border-right: 1px solid black;
-  padding: 1% 0% 0% 5%;
-  height: 130px;
-}
-
-.todoListDisplay {
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  padding: 0% 5% 0% 5%;
-  height: 518px;
-  overflow: scroll;
+  text-align: center;
+  padding: 1vh;
 }
 
 .svg {
@@ -50,12 +42,12 @@ body {
 }
 
 .todoLists {
-  padding: 10px 0px 10px 10px;
-  width: 76.5%;
-  overflow: scroll;
+  flex: 85%;
+  padding: 1vh;
+  overflow-y: scroll;
 }
 
-.task-header {
+.todo-header {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgba(30, 30, 30, 0.4);
@@ -63,7 +55,7 @@ body {
   margin-bottom: 10px;
 }
 
-.task-container {
+.todo-container {
   color: rgba(10, 10, 10, 0.87);
   border: 1px solid rgba(30, 30, 30, 0.4);
   margin-top: 10px;
@@ -73,14 +65,9 @@ body {
   flex-direction: column;
 }
 
-.task-title {
+.todo-title {
   margin: 1px;
   padding-top: 7px;
-}
-
-.todo-title {
-  padding-top: 7px;
-  cursor: pointer;
 }
 
 .subTask {

@@ -61,8 +61,8 @@ const renameTodo = function() {
 
 const createTaskHeader = function(task) {
   const deleteImg = createImg('svg/delete.svg', 'deleteButton', 'deleteTodo');
-  const taskHeader = `<div class="task-header">
-  <h3 class="task-title" onclick="makeContentEditable(renameTodo)" >${task.title}</h3>
+  const taskHeader = `<div class="todo-header">
+  <h3 class="todo-title" onclick="makeContentEditable(renameTodo)" >${task.title}</h3>
   <div class="options">${deleteImg}</div>
   </div>`;
   return taskHeader;
@@ -109,7 +109,7 @@ const createSubTasksContainer = function(task) {
 };
 
 const createTodoLists = function(todoList, task) {
-  const taskContainer = `<div id="${task.id}" class="task-container">
+  const taskContainer = `<div id="${task.id}" class="todo-container">
   ${createTaskHeader(task)}${createSubTasksContainer(task)}
   </div>`;
   return todoList + taskContainer;
@@ -121,36 +121,9 @@ const generateTodoLists = function(todoListsJson) {
   todoListsContainer.innerHTML = todoLists;
 };
 
-const displayTodoList = function() {
-  const [task] = event.path;
-  const taskId = task.id;
-  const returnButton = createImg('svg/return.svg', 'svg', 'loadTasks');
-  sendXHR('GET', '/tasks', '', text => {
-    const todoListsContainer = document.querySelector('.todoLists');
-    const todoListsJson = JSON.parse(text);
-    todoListsContainer.innerHTML = '';
-    const [todo] = todoListsJson.filter(task => task.id === +taskId);
-    const list = createTodoLists('', todo);
-    todoListsContainer.innerHTML = returnButton + list;
-  });
-};
-
-const createTitles = function(titlesList, task) {
-  const title = `<div id="${task.id}" class="todo-title" 
-  onclick="displayTodoList()">${task.title}</div>`;
-  return titlesList + title;
-};
-
-const generateTodoTitles = function(todoListsJson) {
-  const todoTitlesContainer = document.querySelector('.todoListDisplay');
-  const titlesList = todoListsJson.reduce(createTitles, '');
-  todoTitlesContainer.innerHTML = `<h1>List:</h1>${titlesList}`;
-};
-
 const generateTasks = function(text) {
   const todoListsJson = JSON.parse(text);
   generateTodoLists(todoListsJson);
-  generateTodoTitles(todoListsJson);
 };
 
 const loadTasks = function() {
