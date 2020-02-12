@@ -1,4 +1,3 @@
-
 const createImg = function(src, className, eventListener) {
   return `<img src="${src}" class="${className}" 
   onclick="${eventListener}()"></img>`;
@@ -29,35 +28,38 @@ const makeContentEditable = function(callback) {
   event.target.onblur = callback;
 };
 
-const generateSubTasks = (allTasksHtml, task) => {
+const generateSubTasks = (allTasksHtml, task, todoId) => {
   const { id, work, isDone } = task;
   const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
+
   const html = `<input type="checkbox" onclick="changeStatus()" 
   ${isDone ? 'checked' : ''}>
   <p onclick="makeContentEditable(renameTask)"
    class=${isDone ? 'done' : ''}>${work}</p>`;
-  const taskHtml = `<div id="task-${id}" class="task-item">
+
+  const taskHtml = `<div id="task-${todoId}-${id}" class="task-item">
     <div class="taskStatus">${html}</div>${img}
     </div>`;
   return allTasksHtml + taskHtml;
 };
 
-const createSubTasksContainer = function(task) {
+const createSubTasksContainer = function(todo) {
   return `<div>${createSubTaskAdder()}
-   <div class="tasks">${task.tasks.reduce(generateSubTasks, '')}</div>
-   </div>`;
+   <div class="tasks">${todo.tasks.reduce((html, task) => {
+    return generateSubTasks(html, task, todo.id);
+  }, '')}</div></div>`;
 };
 
-const createTodoLists = function(todoList, task) {
-  const taskContainer = `<div id="${task.id}" class="todo-container">
-  ${createTaskHeader(task)}${createSubTasksContainer(task)}
+const createTodoLists = function(todoList, todo) {
+  const taskContainer = `<div id="${todo.id}" class="todo-container">
+  ${createTaskHeader(todo)}${createSubTasksContainer(todo)}
   </div>`;
   return todoList + taskContainer;
 };
 
 const generateTodoLists = function(text) {
-  const todoListsJson = JSON.parse(text);
+  const todoList = JSON.parse(text);
   const todoListsContainer = document.querySelector('.todoList');
-  const todoLists = todoListsJson.reduce(createTodoLists, '');
-  todoListsContainer.innerHTML = todoLists;
+  const todoListsHtml = todoList.reduce(createTodoLists, '');
+  todoListsContainer.innerHTML = todoListsHtml;
 };

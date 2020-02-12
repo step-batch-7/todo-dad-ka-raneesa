@@ -21,33 +21,34 @@ const createTodo = function() {
 };
 
 const deleteTodo = function() {
-  const [, , , task] = event.path;
-  const taskId = task.id;
-  sendXHR('POST', '/removeTodo', `id=${taskId}`, generateTodoLists);
+  const todo = event.target.closest('.todo-container');
+  sendXHR('POST', '/removeTodo', `id=${todo.id}`, generateTodoLists);
 };
 
 const addSubTask = function() {
   const textBox = event.target.previousElementSibling;
-  const [, , , list] = event.path;
-  const message = `id=${list.id}&work=${textBox.value}`;
+  const todo = event.target.closest('.todo-container');
+  const message = `id=${todo.id}&work=${textBox.value}`;
   textBox.value && sendXHR('POST', '/createTask', message, generateTodoLists);
   textBox.value = '';
 };
 
 const removeSubTask = function() {
-  const [, task, , , todo] = event.path;
-  const message = `todoId=${todo.id}&taskId=${task.id.split('-').pop()}`;
+  const task = event.target.closest('.task-item');
+  const [, todoId, taskId] = task.id.split('-');
+  const message = `todoId=${todoId}&taskId=${taskId}`;
   sendXHR('POST', '/removeTask', message, generateTodoLists);
 };
 
 const changeStatus = () => {
-  const [, , task, , , todo] = event.path;
-  const message = `todoId=${todo.id}&taskId=${task.id.split('-').pop()}`;
+  const task = event.target.closest('.task-item');
+  const [, todoId, taskId] = task.id.split('-');
+  const message = `todoId=${todoId}&taskId=${taskId}`;
   sendXHR('POST', '/changeStatus', message, generateTodoLists);
 };
 
 const renameTodo = function() {
-  const [, , todo] = event.path;
+  const todo = event.target.closest('.todo-container');
   event.target.contentEditable = false;
   const newTitle = event.target.innerText;
   const message = `newTitle=${newTitle}&todoId=${todo.id}`;
@@ -55,11 +56,11 @@ const renameTodo = function() {
 };
 
 const renameTask = function() {
-  const [, , task, , , todo] = event.path;
+  const task = event.target.closest('.task-item');
   event.target.contentEditable = false;
   const newTitle = event.target.innerText;
-  const taskId = task.id.split('-').pop();
-  const message = `newTitle=${newTitle}&todoId=${todo.id}&taskId=${taskId}`;
+  const [, todoId, taskId] = task.id.split('-');
+  const message = `newTitle=${newTitle}&todoId=${todoId}&taskId=${taskId}`;
   sendXHR('POST', '/renameTask', message, generateTodoLists);
 };
 
