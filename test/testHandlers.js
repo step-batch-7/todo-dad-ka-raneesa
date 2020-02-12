@@ -42,11 +42,21 @@ describe('POST createTodo', function() {
   it('Should save the new todo', function(done) {
     request(app.connectionListener.bind(app))
       .post('/createTodo')
-      .send('title=Shankar')
       .set('Accept', '*/*')
+      .send('title=Shankar')
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/Shankar/, done);
+  });
+
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/createTodo')
+      .set('Accept', '*/*')
+      .send('name=Shankar')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
   });
 });
 
@@ -60,6 +70,15 @@ describe('POST removeTodo', function() {
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/deepika/, done);
   });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/removeTodo')
+      .set('Accept', '*/*')
+      .send('name=Shankar')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
+  });
 });
 
 describe('POST createTask', function() {
@@ -71,6 +90,15 @@ describe('POST createTask', function() {
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/noWork/, done);
+  });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/createTask')
+      .set('Accept', '*/*')
+      .send('id=1')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
   });
 });
 
@@ -84,6 +112,15 @@ describe('POST removeTask', function() {
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/deepika/, done);
   });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/removeTask')
+      .set('Accept', '*/*')
+      .send('id=1')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
+  });
 });
 
 describe('POST changeStatus', function() {
@@ -95,6 +132,15 @@ describe('POST changeStatus', function() {
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/true/, done);
+  });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/changeStatus')
+      .set('Accept', '*/*')
+      .send('todoId=1')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
   });
 });
 
@@ -108,6 +154,15 @@ describe('POST renameTodo', function() {
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/Shankar/, done);
   });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/renameTodo')
+      .set('Accept', '*/*')
+      .send('newTitle=Deepika')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
+  });
 });
 
 describe('POST renameTask', function() {
@@ -119,6 +174,15 @@ describe('POST renameTask', function() {
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/Shankar/, done);
+  });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/createTask')
+      .set('Accept', '*/*')
+      .send('newTitle=deepika')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
   });
 });
 
@@ -134,6 +198,7 @@ describe('PUT nonExisting method', () => {
   it('should return 405 for a non existing method', (done) => {
     request(app.connectionListener.bind(app))
       .put('/')
-      .expect(405, done);
+      .expect(400)
+      .expect(/Bad Request/, done);
   });
 });
