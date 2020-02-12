@@ -110,11 +110,13 @@
       "files": [
         "render.js",
         "request.js",
-        "search.js"
+        "search.js",
+        "signUp.js"
       ],
       "rules": {
         "no-unused-vars": "off",
-        "no-undef": "off"
+        "no-undef": "off",
+        "no-magic-numbers": "off"
       }
     }
   ]
