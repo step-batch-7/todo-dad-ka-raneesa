@@ -79,6 +79,15 @@ describe('POST removeTodo', function() {
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
   });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/removeTodo')
+      .set('Accept', '*/*')
+      .send('id=20')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
 });
 
 describe('POST createTask', function() {
@@ -99,6 +108,15 @@ describe('POST createTask', function() {
       .expect(400)
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
+  });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/createTask')
+      .set('Accept', '*/*')
+      .send('id=20&work=noWork')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
   });
 });
 
@@ -121,6 +139,24 @@ describe('POST removeTask', function() {
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
   });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/removeTask')
+      .set('Accept', '*/*')
+      .send('todoId=20&taskId=1')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
+  it('Should send not found if task does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/removeTask')
+      .set('Accept', '*/*')
+      .send('todoId=1&taskId=10')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
 });
 
 describe('POST changeStatus', function() {
@@ -141,6 +177,24 @@ describe('POST changeStatus', function() {
       .expect(400)
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
+  });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/changeStatus')
+      .set('Accept', '*/*')
+      .send('todoId=20&taskId=1')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
+  it('Should send not found if task does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/changeStatus')
+      .set('Accept', '*/*')
+      .send('todoId=1&taskId=20')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
   });
 });
 
@@ -163,6 +217,15 @@ describe('POST renameTodo', function() {
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
   });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/renameTodo')
+      .set('Accept', '*/*')
+      .send('newTitle=changed&todoId=20')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
 });
 
 describe('POST renameTask', function() {
@@ -177,12 +240,30 @@ describe('POST renameTask', function() {
   });
   it('Should send bad request for invalid request', function(done) {
     request(app.connectionListener.bind(app))
-      .post('/createTask')
+      .post('/renameTask')
       .set('Accept', '*/*')
       .send('newTitle=deepika')
       .expect(400)
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
+  });
+  it('Should send not found if todo does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/renameTask')
+      .set('Accept', '*/*')
+      .send('newTitle=deepika&todoId=20&taskId=1')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
+  });
+  it('Should send not found if task does not exist', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/renameTask')
+      .set('Accept', '*/*')
+      .send('newTitle=deepika&todoId=1&taskId=20')
+      .expect(404)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Not Found/, done);
   });
 });
 

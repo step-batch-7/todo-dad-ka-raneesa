@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "chai": "^4.2.0",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
     "sinon": "^8.1.1",

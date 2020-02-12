@@ -1,4 +1,4 @@
-const assert = require('assert');
+const assert = require('chai').assert;
 const TodoList = require('../lib/TodoList');
 
 const list = [{
@@ -34,6 +34,11 @@ describe('removeTodo', function() {
     const todoRemoved = todoList.removeTodo(1);
     assert.ok(todoRemoved);
   });
+  it('Should return false if given todo id does not exist', function() {
+    const todoList = new TodoList(list);
+    const todoRemoved = todoList.removeTodo(20);
+    assert.notOk(todoRemoved);
+  });
 });
 
 describe('addTask', function() {
@@ -41,6 +46,11 @@ describe('addTask', function() {
     const todoList = new TodoList(list);
     const taskAdded = todoList.addTask(1, 'new task');
     assert.ok(taskAdded);
+  });
+  it('Should not add task if todo is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.addTask(20, 'new task');
+    assert.notOk(taskAdded);
   });
 });
 
@@ -50,6 +60,16 @@ describe('removeTask', function() {
     const taskRemoved = todoList.removeTask(1, 1);
     assert.ok(taskRemoved);
   });
+  it('Should not remove task if todo is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.removeTask(20, 1);
+    assert.notOk(taskAdded);
+  });
+  it('Should not remove task if task is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.removeTask(1, 20);
+    assert.notOk(taskAdded);
+  });
 });
 
 describe('renameTodo', function() {
@@ -57,6 +77,11 @@ describe('renameTodo', function() {
     const todoList = new TodoList(list);
     const renamedTodo = todoList.renameTodo('new title', 1);
     assert.ok(renamedTodo);
+  });
+  it('Should not rename todo if todo is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.renameTodo('new task', 20);
+    assert.notOk(taskAdded);
   });
 });
 
@@ -66,6 +91,16 @@ describe('renameTask', function() {
     const renamedTask = todoList.renameTask('new title', 1, 1);
     assert.ok(renamedTask);
   });
+  it('Should not rename task if todo is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.renameTask('new task', 20, 1);
+    assert.notOk(taskAdded);
+  });
+  it('Should not rename task if task is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.renameTask('new task', 1, 20);
+    assert.notOk(taskAdded);
+  });
 });
 
 describe('changeStatus', function() {
@@ -73,5 +108,15 @@ describe('changeStatus', function() {
     const todoList = new TodoList(list);
     const changedStatus = todoList.changeStatus(1, 1);
     assert.ok(changedStatus);
+  });
+  it('Should not change status of task if todo is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.changeStatus(20, 1);
+    assert.notOk(taskAdded);
+  });
+  it('Should not change status of task if task is not present', function() {
+    const todoList = new TodoList(list);
+    const taskAdded = todoList.changeStatus(1, 20);
+    assert.notOk(taskAdded);
   });
 });
