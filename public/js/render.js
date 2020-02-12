@@ -34,7 +34,8 @@ const generateSubTasks = (allTasksHtml, task) => {
   const img = createImg('svg/remove.svg', 'removeButton', 'removeSubTask');
   const html = `<input type="checkbox" onclick="changeStatus()" 
   ${isDone ? 'checked' : ''}>
-  <p onclick="makeContentEditable(renameTask)">${work}</p>`;
+  <p onclick="makeContentEditable(renameTask)"
+   class=${isDone ? 'done' : ''}>${work}</p>`;
   const taskHtml = `<div id="task-${id}" class="task-item">
     <div class="taskStatus">${html}</div>${img}
     </div>`;

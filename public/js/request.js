@@ -58,7 +58,8 @@ const renameTask = function() {
   const [, , task, , , todo] = event.path;
   event.target.contentEditable = false;
   const newTitle = event.target.innerText;
-  const message = `newTitle=${newTitle}&todoId=${todo.id}&taskId=${task.id.split('-').pop()}`;
+  const taskId = task.id.split('-').pop();
+  const message = `newTitle=${newTitle}&todoId=${todo.id}&taskId=${taskId}`;
   sendXHR('POST', '/renameTask', message, generateTodoLists);
 };
 

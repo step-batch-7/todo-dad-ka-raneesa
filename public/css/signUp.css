@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url('../svg/background.png');
+  background-size: cover;
+}
+
+.container {
+  position: relative;
+  width: 15%;
+  top: 25vh;
+  left: 40%;
+  background-color: white;
+  border: 1px solid green;
+  padding: 2vh;
+}
+
+.inputBox {
+  width: 90%;
+  margin: 1vh 0;
+  padding: 0.8vh;
+}
+
+#submit {
+  width: 97%;
+  height: 5vh;
+  padding: 1vh;
+  font-size: 2vh;
+  margin-top: 1vh;
+  color: white;
+  background-color: #205a23;
+}

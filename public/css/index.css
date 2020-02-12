@@ -135,3 +135,7 @@ body {
 .selected {
   color: red;
 }
+
+.done {
+  text-decoration: line-through;
+}
