@@ -9,7 +9,7 @@ body {
 .container {
   position: relative;
   width: 15%;
-  top: 25vh;
+  top: 20vh;
   left: 40%;
   background-color: white;
   border: 1px solid green;
@@ -18,16 +18,22 @@ body {
 
 .inputBox {
   width: 90%;
-  margin: 1vh 0;
+  margin: 1vh 0 0 0;
   padding: 0.8vh;
 }
 
-#submit {
+#submit,
+#login {
   width: 97%;
-  height: 5vh;
+  height: 4.5vh;
   padding: 1vh;
   font-size: 2vh;
   margin-top: 1vh;
   color: white;
-  background-color: #205a23;
+  background-color: #489466;
+}
+
+.container p {
+  font-size: 1.5vh;
+  color: red;
 }
