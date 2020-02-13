@@ -267,6 +267,35 @@ describe('POST renameTask', function() {
   });
 });
 
+describe('POST signup', function() {
+  it('Should return login page when all fields are valid', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/signup')
+      .set('Accept', '*/*')
+      .send('name=shankar&email=sb@gmail.com&username=shankara&password=123456')
+      .expect(200)
+      .expect(/{}/, done);
+  });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/signup')
+      .set('Accept', '*/*')
+      .send('newTitle=deepika')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
+  });
+  it('Should send bad request for invalid request', function(done) {
+    request(app.connectionListener.bind(app))
+      .post('/signup')
+      .set('Accept', '*/*')
+      .send('newTitle=deepika')
+      .expect(400)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Bad Request/, done);
+  });
+});
+
 describe('GET nonExisting Url', () => {
   it('should return 404 for a non existing page', (done) => {
     request(app.connectionListener.bind(app))

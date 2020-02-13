@@ -8,9 +8,9 @@ body {
 
 .container {
   position: relative;
-  width: 15%;
+  width: 20%;
   top: 20vh;
-  left: 40%;
+  left: 38%;
   background-color: white;
   border: 1px solid green;
   padding: 2vh;
@@ -36,4 +36,9 @@ body {
 .container p {
   font-size: 1.5vh;
   color: red;
+}
+
+#decision {
+  color: black;
+  font-size: 2vh;
 }
