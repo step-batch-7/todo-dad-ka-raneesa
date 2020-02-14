@@ -11,15 +11,15 @@
 <body>
   <div class="container">
     <h2>Login</h2>
-    <form action="javascript:isValidCredentials()" method="POST">
-      <p id="invalid"></p>
+    <form action="login" method="POST">
+      <p id="invalid"> __error__ </p>
       <label for="username"><b>Username:</b></label><br>
       <input type="text" placeholder="Enter Username" name="username" required><br>
       <label for="password"><b>Password:</b></label><br>
       <input type="password" placeholder="Enter Password" name="password" required><br>
       <button type="submit" id="submit">Login</button>
     </form>
-    <p id="decision"><a href="/signUp.html">Create Account</a></p>
+    <p id="decision"><a href="signup">Create Account</a></p>
   </div>
 </body>
 

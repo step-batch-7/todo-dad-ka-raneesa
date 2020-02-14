@@ -50,7 +50,7 @@ const createSubTasksContainer = function(todo) {
   }, '')}</div></div>`;
 };
 
-const  createTodoLists = function(todoList, todo) {
+const createTodoLists = function(todoList, todo) {
   const taskContainer = `<div id="${todo.id}" class="todo-container">
   ${createTaskHeader(todo)}${createSubTasksContainer(todo)}
   </div>`;

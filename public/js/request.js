@@ -72,6 +72,9 @@ const loadTasks = function() {
     if (this.status === statusCodes.OK) {
       generateTodoLists(this.responseText);
     }
+    if (this.status === 401) {
+      window.location.href += 'login';
+    }
   };
   xhr.send();
 };
