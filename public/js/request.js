@@ -4,12 +4,13 @@ const statusCodes = {
 
 const sendXHR = function(method, url, message, callback) {
   const xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onload = function() {
     if (this.status === statusCodes.OK) {
       callback(this.responseText);
     }
   };
-  xhr.open(method, url);
   xhr.send(message);
 };
 
@@ -65,7 +66,14 @@ const renameTask = function() {
 };
 
 const loadTasks = function() {
-  sendXHR('GET', '/tasks', '', generateTodoLists);
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', '/tasks');
+  xhr.onload = function() {
+    if (this.status === statusCodes.OK) {
+      generateTodoLists(this.responseText);
+    }
+  };
+  xhr.send();
 };
 
 window.onload = loadTasks;

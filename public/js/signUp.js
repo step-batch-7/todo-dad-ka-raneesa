@@ -4,12 +4,13 @@ const selector = function(element) {
 
 const sendXHR = function(method, url, message, callback) {
   const xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   xhr.onload = function() {
     if (this.status === 200) {
       callback(this.responseText);
     }
   };
-  xhr.open(method, url);
   xhr.send(message);
 };
 

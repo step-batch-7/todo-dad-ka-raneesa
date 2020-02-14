@@ -1,7 +1,7 @@
 const fs = require('fs');
 const sinon = require('sinon');
 const request = require('supertest');
-const { app } = require('../lib/handlers');
+const app = require('../server');
 const CONTENT_TYPES = require('../lib/mimeTypes');
 
 beforeEach(() => sinon.replace(fs, 'writeFileSync', () => { }));
@@ -9,27 +9,27 @@ afterEach(() => sinon.restore());
 
 describe('GET', () => {
   it('Should get the index.html for "/" path', (done) => {
-    request(app.connectionListener.bind(app))
+    request(app)
       .get('/')
       .set('Accept', '*/*')
       .expect(200)
-      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect('Content-Type', /text\/html/)
       .expect(/TODO/, done);
   });
 
   it('should get the index.css for "/css/index.css" path', done => {
-    request(app.connectionListener.bind(app))
+    request(app)
       .get('/css/index.css')
       .set('accept', '*/*')
       .expect(200)
-      .expect('Content-Type', CONTENT_TYPES.css)
+      .expect('Content-Type', /text\/css/)
       .expect(/body {/, done);
   });
 });
 
 describe('GET tasks', function() {
   it('Should respond with all the tasks', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .get('/tasks')
       .set('Accept', '*/*')
       .expect(200)
@@ -40,7 +40,7 @@ describe('GET tasks', function() {
 
 describe('POST createTodo', function() {
   it('Should save the new todo', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/createTodo')
       .set('Accept', '*/*')
       .send('title=Shankar')
@@ -50,7 +50,7 @@ describe('POST createTodo', function() {
   });
 
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/createTodo')
       .set('Accept', '*/*')
       .send('name=Shankar')
@@ -62,7 +62,7 @@ describe('POST createTodo', function() {
 
 describe('POST removeTodo', function() {
   it('Should remove the todo of given id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTodo')
       .send('id=2')
       .set('Accept', '*/*')
@@ -71,7 +71,7 @@ describe('POST removeTodo', function() {
       .expect(/deepika/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTodo')
       .set('Accept', '*/*')
       .send('name=Shankar')
@@ -80,7 +80,7 @@ describe('POST removeTodo', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTodo')
       .set('Accept', '*/*')
       .send('id=20')
@@ -92,7 +92,7 @@ describe('POST removeTodo', function() {
 
 describe('POST createTask', function() {
   it('Should save the new task in given todo id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/createTask')
       .send('id=1&work=noWork')
       .set('Accept', '*/*')
@@ -101,7 +101,7 @@ describe('POST createTask', function() {
       .expect(/noWork/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/createTask')
       .set('Accept', '*/*')
       .send('id=1')
@@ -110,7 +110,7 @@ describe('POST createTask', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/createTask')
       .set('Accept', '*/*')
       .send('id=20&work=noWork')
@@ -122,7 +122,7 @@ describe('POST createTask', function() {
 
 describe('POST removeTask', function() {
   it('Should remove the task of given todo id and task id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTask')
       .send('todoId=1&taskId=2')
       .set('Accept', '*/*')
@@ -131,7 +131,7 @@ describe('POST removeTask', function() {
       .expect(/deepika/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTask')
       .set('Accept', '*/*')
       .send('id=1')
@@ -140,7 +140,7 @@ describe('POST removeTask', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTask')
       .set('Accept', '*/*')
       .send('todoId=20&taskId=1')
@@ -149,7 +149,7 @@ describe('POST removeTask', function() {
       .expect(/Not Found/, done);
   });
   it('Should send not found if task does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/removeTask')
       .set('Accept', '*/*')
       .send('todoId=1&taskId=10')
@@ -161,7 +161,7 @@ describe('POST removeTask', function() {
 
 describe('POST changeStatus', function() {
   it('Should change the status of task of given task,todo id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/changeStatus')
       .send('todoId=1&taskId=1')
       .set('Accept', '*/*')
@@ -170,7 +170,7 @@ describe('POST changeStatus', function() {
       .expect(/true/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/changeStatus')
       .set('Accept', '*/*')
       .send('todoId=1')
@@ -179,7 +179,7 @@ describe('POST changeStatus', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/changeStatus')
       .set('Accept', '*/*')
       .send('todoId=20&taskId=1')
@@ -188,7 +188,7 @@ describe('POST changeStatus', function() {
       .expect(/Not Found/, done);
   });
   it('Should send not found if task does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/changeStatus')
       .set('Accept', '*/*')
       .send('todoId=1&taskId=20')
@@ -200,7 +200,7 @@ describe('POST changeStatus', function() {
 
 describe('POST renameTodo', function() {
   it('Should rename todo title of given todo id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTodo')
       .send('newTitle=Shankar&todoId=1')
       .set('Accept', '*/*')
@@ -209,7 +209,7 @@ describe('POST renameTodo', function() {
       .expect(/Shankar/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTodo')
       .set('Accept', '*/*')
       .send('newTitle=Deepika')
@@ -218,7 +218,7 @@ describe('POST renameTodo', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTodo')
       .set('Accept', '*/*')
       .send('newTitle=changed&todoId=20')
@@ -230,7 +230,7 @@ describe('POST renameTodo', function() {
 
 describe('POST renameTask', function() {
   it('Should rename task of given todo,task id', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTask')
       .send('newTitle=Shankar&todoId=1&taskId=1')
       .set('Accept', '*/*')
@@ -239,7 +239,7 @@ describe('POST renameTask', function() {
       .expect(/Shankar/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTask')
       .set('Accept', '*/*')
       .send('newTitle=deepika')
@@ -248,7 +248,7 @@ describe('POST renameTask', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send not found if todo does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTask')
       .set('Accept', '*/*')
       .send('newTitle=deepika&todoId=20&taskId=1')
@@ -257,7 +257,7 @@ describe('POST renameTask', function() {
       .expect(/Not Found/, done);
   });
   it('Should send not found if task does not exist', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/renameTask')
       .set('Accept', '*/*')
       .send('newTitle=deepika&todoId=1&taskId=20')
@@ -269,7 +269,7 @@ describe('POST renameTask', function() {
 
 describe('POST signup', function() {
   it('Should return login page when all fields are valid', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/signup')
       .set('Accept', '*/*')
       .send('name=shankar&email=sb@gmail.com&username=shankara&password=123456')
@@ -277,7 +277,7 @@ describe('POST signup', function() {
       .expect(/{}/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/signup')
       .set('Accept', '*/*')
       .send('newTitle=deepika')
@@ -286,7 +286,7 @@ describe('POST signup', function() {
       .expect(/Bad Request/, done);
   });
   it('Should send bad request for invalid request', function(done) {
-    request(app.connectionListener.bind(app))
+    request(app)
       .post('/signup')
       .set('Accept', '*/*')
       .send('newTitle=deepika')
@@ -298,17 +298,17 @@ describe('POST signup', function() {
 
 describe('GET nonExisting Url', () => {
   it('should return 404 for a non existing page', (done) => {
-    request(app.connectionListener.bind(app))
+    request(app)
       .get('/badPage')
-      .expect(404, done);
+      .expect(404, done)
   });
 });
 
 describe('PUT nonExisting method', () => {
   it('should return 405 for a non existing method', (done) => {
-    request(app.connectionListener.bind(app))
+    request(app)
       .put('/')
-      .expect(400)
-      .expect(/Bad Request/, done);
+      .expect(405)
+      .expect(/Method Not Allowed/, done);
   });
 });

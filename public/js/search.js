@@ -5,7 +5,7 @@ const selector = function(element) {
 const todoSearch = function(todoList) {
   const searchText = document.querySelector('#todoSearch').value;
   todoList.forEach(todo => {
-    if (todo.title.includes(searchText)) {
+    if (todo.title.toLowerCase().includes(searchText.toLowerCase())) {
       document.getElementById(todo.id).style.display = '';
     } else {
       document.getElementById(todo.id).style.display = 'none';
@@ -17,7 +17,9 @@ const filterTasks = function(todo, searchText) {
   if (!searchText.trim()) {
     return [];
   }
-  return todo.tasks.filter(task => task.work.includes(searchText));
+  return todo.tasks.filter(task => {
+    return task.work.toLowerCase().includes(searchText.toLowerCase());
+  });
 };
 
 const unHighlightText = function(todo, tasks) {
