@@ -466,6 +466,17 @@ describe('POST login', function() {
   });
 });
 
+describe('POST logout', function() {
+  it('Should remove the cookie when valid user logout', function(done) {
+    request(app)
+      .post('/logout')
+      .set('Accept', '*/*')
+      .set('Cookie', 'SID=12345')
+      .send('')
+      .expect(302, done);
+  });
+});
+
 describe('PUT nonExisting method', () => {
   it('should return 405 for a non existing method', (done) => {
     request(app)

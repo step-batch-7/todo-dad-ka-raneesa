@@ -11,8 +11,8 @@ Next Requirements:
  --DONE-- 2. Edit tasks: Ability to edit their existing tasks.
  --DONE-- 4. Search by tasks: Search the todo item by its matched words.
  --DONE-- 3. Search by title:  Search the list by its title words.
-  5. User todo's: A user can log in and log out off their account and work on their own todos.
-  6. Home Page: If not logged in it is a login page else it is the user's todo page/dashboard.
+ --DONE-- 5. User todo's: A user can log in and log out off their account and work on their own todos.
+ --DONE-- 6. Home Page: If not logged in it is a login page else it is the user's todo page/dashboard.
 
 
 Data Structure:
