@@ -1,7 +1,7 @@
 const fs = require('fs');
 const sinon = require('sinon');
 const request = require('supertest');
-const app = require('../server');
+const app = require('../lib/routes');
 const CONTENT_TYPES = require('../lib/mimeTypes');
 
 beforeEach(() => sinon.replace(fs, 'writeFileSync', () => { }));
@@ -120,12 +120,13 @@ describe('POST createTask', function() {
   });
 });
 
-describe('POST removeTask', function() {
+describe.only('POST removeTask', function() {
   it('Should remove the task of given todo id and task id', function(done) {
     request(app)
       .post('/removeTask')
       .send('todoId=1&taskId=2')
       .set('Accept', '*/*')
+      .set('Cookie', 'SID=12345')
       .expect(200)
       .expect('Content-Type', CONTENT_TYPES.json)
       .expect(/deepika/, done);

@@ -6,6 +6,11 @@ body {
   background-size: cover;
 }
 
+#invalid {
+  color: red;
+  font-size: 1.5vh;
+}
+
 .container {
   position: relative;
   width: 20%;
