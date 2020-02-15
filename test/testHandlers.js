@@ -23,7 +23,7 @@ describe('GET', () => {
       .get('/signup')
       .set('Accept', '*/*')
       .expect(200)
-      .expect('Content-Type', /text\/html/)
+      .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/signUp/, done);
   });
 
@@ -387,6 +387,26 @@ describe('POST signup', function() {
       .expect(302, done);
   });
 
+  it('Should give error if username is already exits', function(done) {
+    request(app)
+      .post('/signup')
+      .set('Accept', '*/*')
+      .send('name=shankar&email=sb@gmail.com&username=deepika&password=123456')
+      .expect(200)
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(/Username already exists/, done);
+  });
+
+  it('Should give error if email is already exits', function(done) {
+    const email = 'karri.b@thoughtworks.com';
+    request(app)
+      .post('/signup')
+      .set('Accept', '*/*')
+      .send(`name=shankar&email=${email}&username=shankar&password=123456`)
+      .expect(200)
+      .expect(/Email already registered/, done);
+  });
+
   it('Should respond with 401 if user not logged in', function(done) {
     request(app)
       .post('/signUp')
@@ -404,10 +424,40 @@ describe('POST signup', function() {
       .expect('Content-Type', CONTENT_TYPES.html)
       .expect(/Bad Request/, done);
   });
+});
+
+describe('POST login', function() {
+  it('Should return index page when valid credentials given', function(done) {
+    request(app)
+      .post('/login')
+      .set('Accept', '*/*')
+      .send('username=deepika&password=deepika')
+      .expect(302, done);
+  });
+
+  it('Should give error if invalid username given', function(done) {
+    request(app)
+      .post('/login')
+      .set('Accept', '*/*')
+      .send('username=shankar&password=deepika')
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(200)
+      .expect(/Invalid/, done);
+  });
+
+  it('Should give error if invalid username given', function(done) {
+    request(app)
+      .post('/login')
+      .set('Accept', '*/*')
+      .send('username=deepika&password=shankar')
+      .expect('Content-Type', CONTENT_TYPES.html)
+      .expect(200)
+      .expect(/Invalid/, done);
+  });
 
   it('Should send bad request for invalid request', function(done) {
     request(app)
-      .post('/signup')
+      .post('/login')
       .set('Accept', '*/*')
       .send('newTitle=deepika')
       .expect(400)
