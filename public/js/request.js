@@ -1,5 +1,7 @@
 const statusCodes = {
-  'OK': 200
+  'OK': 200,
+  'REDIRECT': 302,
+  'UNAUTHORIZED': 401
 };
 
 const sendXHR = function(method, url, message, callback) {
@@ -65,6 +67,12 @@ const renameTask = function() {
   sendXHR('POST', '/renameTask', message, generateTodoLists);
 };
 
+const signOut = function() {
+  sendXHR('POST', '/logout', '', function(text) {
+    window.location.href = '/login';
+  });
+};
+
 const loadTasks = function() {
   const xhr = new XMLHttpRequest();
   xhr.open('GET', '/tasks');
@@ -72,8 +80,9 @@ const loadTasks = function() {
     if (this.status === statusCodes.OK) {
       generateTodoLists(this.responseText);
     }
-    if (this.status === 401) {
-      window.location.href += 'login';
+    if (this.status === statusCodes.UNAUTHORIZED) {
+      window.location.href =
+        window.location.href.split('/')[0] + 'login';
     }
   };
   xhr.send();
