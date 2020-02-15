@@ -14,8 +14,8 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "export DATA_STORE=/Users/step25/projects/todo-dad-ka-raneesa/data/todoLists.json;node server.js",
-    "test": "export DATA_STORE=/Users/step25/projects/todo-dad-ka-raneesa/test/testData.json; export SESSION=12345; mocha"
+    "start": "export APP_CONFIG=/Users/step25/projects/todo-dad-ka-raneesa/lib/config.js; node server.js",
+    "test": "export APP_CONFIG=/Users/step25/projects/todo-dad-ka-raneesa/test/testConfig.js; mocha"
   },
   "repository": {
     "type": "git",
