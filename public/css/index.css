@@ -26,15 +26,17 @@ body {
 
 .todoAdder {
   display: flex;
-  flex: 60%;
+  flex: 50%;
   justify-content: flex-start;
   align-items: center;
   font-size: 1vh;
   padding: 1vh;
 }
 
-#searchBar {
-  flex: 40%;
+#SearchBar {
+  flex: 50%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .todoAdder input[type='text'] {
@@ -63,13 +65,15 @@ body {
   border-bottom: 1px solid gray;
   align-self: flex-end;
   margin: 1.8vh;
-  width: 20vh;
+  padding: 0.6vh;
+  width: 30%;
 }
 
 #title {
   font-size: large;
   margin: 0px 10px 0px 20px;
   width: 24vh;
+  padding: 0.6vh;
 }
 
 .svg {
@@ -110,12 +114,15 @@ body {
 
 .subTask {
   font-size: 1.5vh;
-  height: 2vh;
+  height: 1.6vh;
   width: 50%;
+  font-size: 1.6vh;
+  padding: .6vh;
 }
 
 .subTaskAdder {
   display: flex;
+  padding: 1vh;
 }
 
 #date {
@@ -124,24 +131,23 @@ body {
 }
 
 .addButton {
-  height: 18px;
+  height: 3vh;
   cursor: pointer;
-  padding-top: 1.6px;
   margin: 0%;
-  margin-left: 3px;
+  margin-left: 1vh;
 }
+
 .removeButton {
-  height: 12px;
+  height: 1.7vh;
   cursor: pointer;
-  padding-top: 3px;
+  padding-top: 0.2vh;
   margin: 0%;
-  margin-left: 8px;
 }
 
 #addTodo {
-  height: 2.5vh;
+  height: 3.5vh;
   cursor: pointer;
-  padding-top: 3px;
+  padding-top: 0.3vh;
   margin: 0%;
 }
 
@@ -153,27 +159,16 @@ body {
 }
 
 #logout {
-  height: 3vh;
+  height: 4vh;
   cursor: pointer;
-  margin: 0 0 0 2vh;
-}
-
-#user {
-  margin: 2vh 0 0 56%;
-  font-size: 1vh;
-}
-
-#greeting {
-  font-size: 2vh;
-  padding-right: 1vh;
-  color: rgb(117, 190, 166);
+  padding: 2vh;
 }
 
 .editButton,
 .deleteButton,
 .saveButton,
 .cancelButton {
-  height: 25px;
+  height: 3.5vh;
   cursor: pointer;
   margin: 0% 10% 0% 10%;
 }
