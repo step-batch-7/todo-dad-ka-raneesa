@@ -38,7 +38,8 @@ const addSubTask = function() {
   const textBox = event.target.previousElementSibling;
   const todo = event.target.closest('.todo-container');
   const message = `id=${todo.id}&work=${textBox.value}`;
-  textBox.value.trim() && sendXHR('POST', '/createTask', message, generateTodoLists);
+  textBox.value.trim() &&
+    sendXHR('POST', '/createTask', message, generateTodoLists);
   textBox.value = '';
 };
 

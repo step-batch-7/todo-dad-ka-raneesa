@@ -117,7 +117,7 @@ body {
   height: 1.6vh;
   width: 50%;
   font-size: 1.6vh;
-  padding: .6vh;
+  padding: 0.6vh;
 }
 
 .subTaskAdder {
@@ -126,7 +126,7 @@ body {
 }
 
 #date {
-  margin-left: 32%;
+  margin-left: 25%;
   color: gray;
 }
 
