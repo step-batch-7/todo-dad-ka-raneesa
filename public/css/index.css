@@ -72,12 +72,6 @@ body {
   width: 24vh;
 }
 
-/* .todoAdder {
-  font-size: small;
-  text-align: left;
-  padding: 1vh;
-} */
-
 .svg {
   height: 25px;
   cursor: pointer;
@@ -85,9 +79,6 @@ body {
 
 .todoList {
   flex: 100%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   padding: 1vh;
   overflow-y: scroll;
 }
@@ -101,7 +92,6 @@ body {
 }
 
 .todo-container {
-  flex: 40%;
   color: rgba(10, 10, 10, 0.87);
   border: 1px solid rgba(30, 30, 30, 0.4);
   background-color: white;
@@ -109,6 +99,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   display: flex;
+  height: fit-content;
   flex-direction: column;
 }
 
@@ -157,20 +148,17 @@ body {
 }
 
 #logout {
-  height: 2vh;
+  height: 3vh;
   cursor: pointer;
-  /* padding-top: 3px; */
   margin: 0 0 0 2vh;
 }
 
 #user {
   margin: 2vh 0 0 56%;
-  /* align-items: center; */
-  font-size: small;
+  font-size: 1vh;
 }
 
 #greeting {
-  /* align-self: baseline; */
   font-size: 2vh;
   padding-right: 1vh;
   color: rgb(117, 190, 166);

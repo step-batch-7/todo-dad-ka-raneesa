@@ -13,8 +13,7 @@ const sendXHR = function(method, url, message, callback) {
       callback(this.responseText);
     }
     if (this.status === statusCodes.UNAUTHORIZED) {
-      window.location.href =
-        window.location.href.split('/')[0] + 'login';
+      window.location.href = '/login';
     }
   };
   xhr.send(message);
@@ -88,8 +87,7 @@ const loadTasks = function() {
       generateTodoLists(this.responseText);
     }
     if (this.status === statusCodes.UNAUTHORIZED) {
-      window.location.href =
-        window.location.href.split('/')[0] + 'login';
+      window.location.href = '/login';
     }
   };
   xhr.send();
