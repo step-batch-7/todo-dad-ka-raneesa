@@ -17,17 +17,16 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  height: 88vh;
+  height: 86vh;
   border: 1px solid black;
   border-radius: 7px;
   word-wrap: break-word;
   word-break: break-all;
-  /* background-color: rgb(6, 161, 32); */
 }
 
 .todoAdder {
   display: flex;
-  flex: 70%;
+  flex: 60%;
   justify-content: flex-start;
   align-items: center;
   font-size: 1vh;
@@ -35,7 +34,7 @@ body {
 }
 
 #searchBar {
-  flex: 30%;
+  flex: 40%;
 }
 
 .todoAdder input[type='text'] {
@@ -59,13 +58,18 @@ body {
 
 #todoSearch,
 #taskSearch {
+  font-size: large;
+  border: none;
+  border-bottom: 1px solid gray;
   align-self: flex-end;
   margin: 1.8vh;
   width: 20vh;
 }
 
 #title {
+  font-size: large;
   margin: 0px 10px 0px 20px;
+  width: 24vh;
 }
 
 /* .todoAdder {
@@ -114,7 +118,8 @@ body {
 }
 
 .subTask {
-  height: 15px;
+  font-size: 1.5vh;
+  height: 2vh;
   width: 50%;
 }
 
@@ -155,7 +160,7 @@ body {
   height: 2vh;
   cursor: pointer;
   /* padding-top: 3px; */
-  margin: 0%;
+  margin: 0 0 0 2vh;
 }
 
 #user {

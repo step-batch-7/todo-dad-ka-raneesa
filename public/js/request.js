@@ -13,7 +13,8 @@ const sendXHR = function(method, url, message, callback) {
       callback(this.responseText);
     }
     if (this.status === statusCodes.UNAUTHORIZED) {
-      window.location.href += 'login';
+      window.location.href =
+        window.location.href.split('/')[0] + 'login';
     }
   };
   xhr.send(message);
@@ -22,7 +23,10 @@ const sendXHR = function(method, url, message, callback) {
 const createTodo = function() {
   const textBox = event.target.previousElementSibling;
   const message = `title=${textBox.value}`;
-  textBox.value && sendXHR('POST', '/createTodo', message, generateTodoLists);
+  textBox.value && sendXHR('POST', '/createTodo', message, text => {
+    generateTodoLists(text);
+    selector('.todoList').scrollHeight = selector('.todoList').scrollTop;
+  });
   textBox.value = '';
 };
 

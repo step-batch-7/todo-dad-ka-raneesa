@@ -15,11 +15,13 @@
       <label for="name" class="label">Enter Full Name:</label><br>
       <input type="text" name="name" id="name" class="inputBox" value='__fullName__' required><br><br>
       <label for="email" class="label">Enter Email:</label><br>
-      <input type="email" name="email" id="email" class="inputBox" value='__email__' required><br>
+      <input type="email" name="email" id="email" class=" inputBox" value='__email__' required><br>
       <p id="emailError"> __emailError__ </p>
       <label for="username" class="label">Enter username:</label><br>
-      <input type="text" name="username" id="username" class="inputBox" value='__username__' required><br>
+      <input type="text" name="username" id="username" pattern="^[^ ].*" class="inputBox" value='__username__'
+        required><br>
       <p id="usernameError"> __usernameError__ </p>
+      <p>No spaces allowed</p>
       <label for="password" class="label">Enter Password:</label><br>
       <input type="password" name="password" pattern="^[^ ]{6,15}$" id="password" class="inputBox" required><br>
       <p id="passwordError">6-15 characters, no spaces allowed</p>

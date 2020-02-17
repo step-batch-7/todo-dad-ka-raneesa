@@ -16,7 +16,7 @@ const createTaskHeader = function(task) {
 const createSubTaskAdder = function() {
   const addButton = createImg('svg/add.svg', 'addButton', 'addSubTask');
   const subTaskAdder = `<div class="subTaskAdder">
-    <input type = "text" name = "subTask" 
+    <input type="text" name="subTask" onchange="addListener()"
     placeholder="Add new task here..." class="subTask">${addButton}
   </div>`;
   return subTaskAdder;
@@ -62,4 +62,8 @@ const generateTodoLists = function(text) {
   const todoListsContainer = document.querySelector('.todoList');
   const todoListsHtml = todoList.reduce(createTodoLists, '');
   todoListsContainer.innerHTML = todoListsHtml;
+};
+
+const addListener = function() {
+  event.target.nextElementSibling.click();
 };
