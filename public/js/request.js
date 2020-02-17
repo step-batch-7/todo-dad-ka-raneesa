@@ -22,7 +22,7 @@ const sendXHR = function(method, url, message, callback) {
 const createTodo = function() {
   const textBox = event.target.previousElementSibling;
   const message = `title=${textBox.value}`;
-  textBox.value && sendXHR('POST', '/createTodo', message, text => {
+  textBox.value.trim() && sendXHR('POST', '/createTodo', message, text => {
     generateTodoLists(text);
     selector('.todoList').scrollHeight = selector('.todoList').scrollTop;
   });
@@ -38,7 +38,7 @@ const addSubTask = function() {
   const textBox = event.target.previousElementSibling;
   const todo = event.target.closest('.todo-container');
   const message = `id=${todo.id}&work=${textBox.value}`;
-  textBox.value && sendXHR('POST', '/createTask', message, generateTodoLists);
+  textBox.value.trim() && sendXHR('POST', '/createTask', message, generateTodoLists);
   textBox.value = '';
 };
 

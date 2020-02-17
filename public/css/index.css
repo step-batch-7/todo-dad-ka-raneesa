@@ -108,8 +108,8 @@ body {
 }
 
 .todo-title {
-  margin: 1px;
-  padding-top: 7px;
+  margin: 0 0 0 1vh;
+  align-self: center;
 }
 
 .subTask {
@@ -126,7 +126,7 @@ body {
 }
 
 #date {
-  margin-left: 30%;
+  margin-left: 32%;
   color: gray;
 }
 
@@ -188,7 +188,7 @@ body {
 }
 
 .options {
-  width: 10%;
+  width: 5%;
 }
 
 .rename {

@@ -466,6 +466,16 @@ describe('POST login', function() {
   });
 });
 
+describe ('GET login', function() {
+  it('Should respond with login page', function(done) {
+    request(app)
+      .get('/login')
+      .set('Accept', '*/*')
+      .expect(/login/)
+      .expect(200, done);
+  });
+});
+
 describe('POST logout', function() {
   it('Should remove the cookie when valid user logout', function(done) {
     request(app)
@@ -474,6 +484,15 @@ describe('POST logout', function() {
       .set('Cookie', 'SID=12345')
       .send('')
       .expect(302, done);
+  });
+});
+
+describe('GET nonExisting url', () => {
+  it('should return 404 for a non existing url', (done) => {
+    request(app)
+      .get('/badPage')
+      .expect(404)
+      .expect(/Not Found/, done);
   });
 });
 
