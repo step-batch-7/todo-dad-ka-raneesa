@@ -118,6 +118,11 @@ body {
   display: flex;
 }
 
+#date {
+  margin-left: 30%;
+  color: gray;
+}
+
 .addButton {
   height: 18px;
   cursor: pointer;
@@ -180,6 +185,7 @@ body {
 
 .task-item p {
   margin: 0%;
+  padding: 0 1.5vh 0 1.5vh;
 }
 
 .taskStatus {

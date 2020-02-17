@@ -13,11 +13,12 @@ const createTaskHeader = function(task) {
   return taskHeader;
 };
 
-const createSubTaskAdder = function() {
+const createSubTaskAdder = function(date) {
   const addButton = createImg('svg/add.svg', 'addButton', 'addSubTask');
   const subTaskAdder = `<div class="subTaskAdder">
-    <input type="text" name="subTask" onchange="addListener()"
-    placeholder="Add new task here..." class="subTask">${addButton}
+    <input type="text" name="subTask" onkeypress="addListener()"
+    placeholder="Add new task here..." class="subTask">${addButton} 
+    <span id="date">Created On: ${date} </span>
   </div>`;
   return subTaskAdder;
 };
@@ -44,7 +45,7 @@ const generateSubTasks = (allTasksHtml, task, todoId) => {
 };
 
 const createSubTasksContainer = function(todo) {
-  return `<div>${createSubTaskAdder()}
+  return `<div>${createSubTaskAdder(todo.date)}
    <div class="tasks">${todo.tasks.reduce((html, task) => {
     return generateSubTasks(html, task, todo.id);
   }, '')}</div></div>`;
@@ -65,5 +66,7 @@ const generateTodoLists = function(text) {
 };
 
 const addListener = function() {
-  event.target.nextElementSibling.click();
+  if (event.key === 'Enter') {
+    event.target.nextElementSibling.click();
+  }
 };

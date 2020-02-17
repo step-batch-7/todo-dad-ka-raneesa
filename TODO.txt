@@ -39,7 +39,8 @@ todo lists :
                       work: list2,
                       isDone: false
                     }
-                  ]
+                  ],
+            date: date
         }
       ]
 
