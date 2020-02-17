@@ -12,6 +12,9 @@ const sendXHR = function(method, url, message, callback) {
     if (this.status === statusCodes.OK) {
       callback(this.responseText);
     }
+    if (this.status === statusCodes.UNAUTHORIZED) {
+      window.location.href += 'login';
+    }
   };
   xhr.send(message);
 };

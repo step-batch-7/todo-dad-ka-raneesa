@@ -17,7 +17,7 @@ const createSubTaskAdder = function() {
   const addButton = createImg('svg/add.svg', 'addButton', 'addSubTask');
   const subTaskAdder = `<div class="subTaskAdder">
     <input type = "text" name = "subTask" 
-    placeholder="Enter Enter task here" class="subTask">${addButton}
+    placeholder="Add new task here..." class="subTask">${addButton}
   </div>`;
   return subTaskAdder;
 };
