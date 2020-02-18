@@ -203,3 +203,12 @@ body {
   text-decoration: line-through;
   color: gray;
 }
+
+#instruction {
+  position: absolute;
+  top: 0%;
+  right: 3%;
+  font-size: 3.7vh;
+  color: white;
+  cursor: pointer;
+}

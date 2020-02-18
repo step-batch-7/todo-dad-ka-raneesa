@@ -70,3 +70,12 @@ const addListener = function() {
     event.target.nextElementSibling.click();
   }
 };
+
+const showInstruction = function() {
+  selector('.container').style.filter = blur('1px');
+  selector('#show').style.display = 'block';
+};
+
+const hideInstruction = function() {
+  selector('#show').style.display = 'none';
+};

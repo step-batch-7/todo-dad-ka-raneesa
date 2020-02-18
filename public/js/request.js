@@ -24,7 +24,7 @@ const createTodo = function() {
   const message = `title=${textBox.value}`;
   textBox.value.trim() && sendXHR('POST', '/createTodo', message, text => {
     generateTodoLists(text);
-    selector('.todoList').scrollHeight = selector('.todoList').scrollTop;
+    selector('.todoList').scrollTop = selector('.todoList').scrollHeight;
   });
   textBox.value = '';
 };
