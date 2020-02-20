@@ -72,10 +72,11 @@ const addListener = function() {
 };
 
 const showInstruction = function() {
-  selector('.container').style.filter = blur('1px');
+  selector('.container').style.filter = 'blur(4px)';
   selector('#show').style.display = 'block';
 };
 
 const hideInstruction = function() {
   selector('#show').style.display = 'none';
+  selector('.container').style.filter = 'blur(0px)';
 };

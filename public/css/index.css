@@ -110,6 +110,7 @@ body {
 .todo-title {
   margin: 0 0 0 1vh;
   align-self: center;
+  outline: none;
 }
 
 .subTask {
@@ -211,4 +212,8 @@ body {
   font-size: 3.7vh;
   color: white;
   cursor: pointer;
+}
+
+.tasks p {
+  outline: none;
 }

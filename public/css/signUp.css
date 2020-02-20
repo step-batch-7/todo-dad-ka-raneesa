@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  height: 100vh;
   background-image: url('../svg/background.png');
   background-size: cover;
 }
@@ -41,4 +42,8 @@ body {
 #decision {
   color: black;
   font-size: 2vh;
+}
+
+#create {
+  text-decoration: none;
 }
