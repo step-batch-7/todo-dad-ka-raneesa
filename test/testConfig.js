@@ -1,6 +1,6 @@
 module.exports = {
-  usersDetails: '../test/testUsersDetails.json',
-  todoLists: '../test/testData.json',
+  usersDetails: `${__dirname}/testUsersDetails.json`,
+  todoLists: `${__dirname}/testData.json`,
   sessions: [{
     username: 'deepika',
     SID: 12345

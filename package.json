@@ -15,8 +15,8 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "export APP_CONFIG=lib/config.js; node server.js",
-    "test": "export APP_CONFIG=test/testConfig.js; nyc mocha"
+    "start": "export APP_CONFIG=$(pwd)/lib/config.js; node server.js",
+    "test": "export APP_CONFIG=$(pwd)/test/testConfig.js; nyc mocha"
   },
   "repository": {
     "type": "git",
